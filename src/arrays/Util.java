@@ -109,24 +109,27 @@ public class Util {
         return -1;
     }
 //===================================================Question 4=======================================================
-    public int maxSumIS(int arr[], int n)  {
+    public int maxSumIS(int arr[], int n) {
         //code here.
         int[] arr1 = new int[n];
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             arr1[i] = arr[i];
             int maxSoFar = arr[i];
-            for(int j = 0; j < i; j++){
-                if(arr[j] < arr[i] && arr1[j] + arr1[i] > maxSoFar){
+            for (int j = 0; j < i; j++) {
+                if (arr[j] < arr[i] && arr1[j] + arr1[i] > maxSoFar) {
                     maxSoFar = arr1[j] + arr1[i];
                 }
             }
             arr1[i] = maxSoFar;
         }
         int max = 0;
-        for(int i = 0; i < n; i++){
-            if(arr1[i] > max){
+        for (int i = 0; i < n; i++) {
+            if (arr1[i] > max) {
                 max = arr1[i];
             }
         }
         return max;
+    }
+
+//    ===============================================Question 5==========================================================================
 }
