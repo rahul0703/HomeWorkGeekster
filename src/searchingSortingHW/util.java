@@ -401,5 +401,181 @@ class util {
 
     }
 
+//==================================================Question 10==================================================================
+//    Count Triplets with smaller than given value let say K
+    public static long countTriplets(long array[], int n,int sum){
+        Arrays.sort(array);
+        long count = 0;
+        for(int i = 0; i < n-2; i++){
+            int j = i+1;
+            int k = n-1;
+            while(j < k){
+                if(array[i] + array[j] + array[k] >= sum){
+                    k--;
+                }else{
+                    count += k-j;
+                    j++;
+                }
+            }
+        }
+        return count;
+    }
+
+//    =========================================Question 11=========================================================================
+//    (imp) merge 2 sorted arrays with O(1) extra space...............................................
+    public static void merge2SortedArraysO1space(int arr1[], int arr2[], int n, int m) {
+        // code here
+        int i = n-1;
+        int j = 0;
+        while(i >= 0 && j <= m-1 && arr1[i] > arr2[j]){
+            int temp = arr1[i];
+            arr1[i] = arr2[j];
+            arr2[j] = temp;
+            i--;
+            j++;
+        }
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        for(int f = 0; f < arr1.length; f++){
+            System.out.print(arr1[f] + " ");
+        }
+        System.out.println();
+        for(int f = 0; f < arr2.length; f++){
+            System.out.print(arr2[f] + " ");
+        }
+        return;
+    }
+
+
+
+//    ==============================================QuickSort================================================================
+    public static void quickSort(int[] array, int i, int j){
+        if(j <= i){
+            return;
+        }
+        int pivot = partition(array, i, j);
+        quickSort(array, i, pivot-1);
+        quickSort(array, pivot+1, j);
+        return;
+    }
+
+    public static int partition(int[] array, int i, int j){
+        if(i >= j){
+            return i;
+        }
+        int pivot = j;
+        int prev = i-1;
+        for(int slide = i; slide < j; slide++){
+            if(array[slide] < array[pivot]){
+                prev++;
+                int temp = array[prev];
+                array[prev] = array[slide];
+                array[slide] = temp;
+            }
+        }
+        int temp = array[prev+1];
+        array[prev+1] = array[pivot];
+        array[pivot] = temp;
+        return prev+1;
+    }
+//    ========================================Question 12====================================================================
+//    3 way quick sort.............................................................................
+//    public static void ThreeWayQuickSort(int[] array, int i, int j){
+//        if(j <= i){
+//            return;
+//        }
+//        int[] pivot = partition3Way(array, i, j);
+//        ThreeWayQuickSort(array, i, pivot[0]-1);
+//        ThreeWayQuickSort(array, pivot[1]+1, j);
 //
+//    }
+//
+//    public static int[] partition3Way(int[] array, int i, int j){
+//        int pivot = j;
+//        int pivot
+
+//    }
+
+//    ======================================question 13=======================================================================
+//  Count Sort...................
+    public static void countSort(int[] array, int n){
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < n; i++) {
+            max = Math.max(max, array[i]);
+            min = Math.min(min, array[i]);
+        }
+        int[] freq = new int[max-min+1];
+//        creating the frequency array
+        for(int i = 0; i < n; i++){
+            int value = array[i];
+            freq[value-min]++;
+        }
+//        prefix sum fot the index updating
+        for(int i = 1; i < freq.length; i++){
+            freq[i] = freq[i] + freq[i-1];
+        }
+//        making a ans array
+        int[] ans = new int[n];
+        for(int i = n-1; i >= 0; i--){
+            int value2 = array[i];
+            int pos = freq[value2-min];
+            int updatedIndex = pos-1;
+            ans[updatedIndex] = value2;
+            freq[value2-min]--;
+        }
+//        simulating the original array as ans array
+        for(int i = 0; i < n; i++){
+            array[i] = ans[i];
+        }
+        return;
+    }
+
+
+//    ===========================================================Question 14=======================================================
+
+//    count sort with index array
+    public static void countSortForRadixSort(int[] array, int n, int exp){
+        int[] freq = new int[10];
+//        creating the frequency array
+        for(int i = 0; i < n; i++){
+            int value = array[i] / exp % 10;
+            freq[value]++;
+        }
+//        prefix sum fot the index updating
+        for(int i = 1; i < 10; i++){
+            freq[i] = freq[i] + freq[i-1];
+        }
+//        making a ans array
+        int[] ans = new int[n];
+        for(int i = n-1; i >= 0; i--){
+            int value2 = array[i];
+            int pos = freq[value2 / exp % 10];
+            int updatedIndex = pos-1;
+            ans[updatedIndex] = value2;
+            freq[value2 / exp % 10]--;
+        }
+//        simulating the original array as ans array
+        for(int i = 0; i < n; i++){
+            array[i] = ans[i];
+        }
+        return;
+    }
+
+//    Radix sort ..............................................................
+    public static void radixSort(int[] array, int n){
+        int max = Integer.MIN_VALUE;
+        for(int val : array){
+            max = Math.max(val, max);
+        }
+        int exp = 1;
+        while(exp < max){
+            countSortForRadixSort(array, n, exp);
+            exp = exp * 10;
+        }
+        return;
+    }
+
+//
+
 }
