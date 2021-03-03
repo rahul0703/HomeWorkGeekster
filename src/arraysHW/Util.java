@@ -1,4 +1,4 @@
-package arrays;
+package arraysHW;
 import java.util.*;
 public class Util {
 

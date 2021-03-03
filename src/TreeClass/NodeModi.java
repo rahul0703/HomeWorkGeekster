@@ -1,4 +1,4 @@
-package Tree;
+package TreeClass;
 
 class NodeModi {
     Node node;
