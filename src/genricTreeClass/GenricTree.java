@@ -192,4 +192,7 @@ public class GenricTree {
 //        return;
 //    }
 
+//    check if the tree is mirror of not......................................................
+//    public
+
 }

@@ -1,7 +1,8 @@
 package BinaryTreeHW;
 
-import java.util.HashMap;
-import java.util.Stack;
+import com.sun.source.tree.Tree;
+
+import java.util.*;
 
 public class util {
 
@@ -171,6 +172,89 @@ public class util {
 
 //===========================================================Question 7=============================================================
 //    Diagonal Traversal of a Binary Tree..............................................................
+    public static void diagonalTraversal(Node node){
+        TreeMap<Integer, ArrayList<Node>> map = new TreeMap<>();
+        InorderDiagonal(node, map, 0);
+        for(Map.Entry<Integer, ArrayList<Node>> entry : map.entrySet()){
+            ArrayList<Node> ans = entry.getValue();
+            for(Node nodeAns : ans){
+                System.out.print(nodeAns.data + " ");
+            }
+        }
+        return;
+    }
+
+    public static void InorderDiagonal(Node node, TreeMap<Integer, ArrayList<Node>> map, int current){
+        if(node == null){
+            return;
+        }
+        if(!map.containsKey(current)){
+            ArrayList<Node> ans = new ArrayList<>();
+            ans.add(node);
+            map.put(current, ans);
+        }else{
+            ArrayList<Node> ans = map.get(current);
+            ans.add(ans.size(), node);
+            map.put(current, ans);
+        }
+        InorderDiagonal(node.left, map, current+1);
+        InorderDiagonal(node.right, map, current);
+        return;
+    }
 
 
+//    ========================================================Question 8======================================================
+//    Print the binary tree in vertical order.....................................................
+//    here I have changed the property of the Node but if we don't have permission to change it, we can just level order traverse insted of Inorder
+
+    public static void PrintBinaryTreeVerticalOrder(elementsModi node){
+        if(node == null){
+            return;
+        }
+        TreeMap<Integer, ArrayList<elementsModi>> map = new TreeMap<>();
+        node.height = 0;
+        getTheFilledHashMap(node, map, 0);
+        for(Map.Entry<Integer, ArrayList<elementsModi>> entry : map.entrySet()){
+            ArrayList<elementsModi> ans = entry.getValue();
+            Collections.sort(ans, new Comparator<elementsModi>() {
+                @Override
+                public int compare(elementsModi o1, elementsModi o2) {
+                    return o1.height - o2.height;
+                }
+            });
+            for(elementsModi i : ans){
+                System.out.print(i.data + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void getTheFilledHashMap(elementsModi node, TreeMap<Integer, ArrayList<elementsModi>> map, int current){
+        if(node == null){
+            return;
+        }
+        if(!map.containsKey(current)){
+            ArrayList<elementsModi> ans = new ArrayList<>();
+            ans.add(node);
+            map.put(current, ans);
+        }else{
+            ArrayList<elementsModi> ans = map.get(current);
+            ans.add(node);
+            map.put(current, ans);
+        }
+        if(node.left != null){
+            node.left.height = node.height + 1;
+        }
+        if(node.right != null){
+            node.right.height = node.height + 1;
+        }
+        getTheFilledHashMap(node.left, map, current-1);
+        getTheFilledHashMap(node.right, map, current+1);
+
+        return;
+    }
+
+
+//    ==========================================================Question 9==========================================================
+    
 }
