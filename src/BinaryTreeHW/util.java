@@ -2,6 +2,8 @@ package BinaryTreeHW;
 
 import com.sun.source.tree.Tree;
 
+import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class util {
@@ -256,5 +258,143 @@ public class util {
 
 
 //    ==========================================================Question 9==========================================================
-    
+//    (IMP) boundary traversal.................................................................................
+    public static ArrayList <Integer> printBoundary(Node node) {
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        ans.add(node.data);
+        printLeft(node.left, ans);
+        printLeaf(node.left, ans);
+        printLeaf(node.right, ans);
+        printRight(node.right, ans);
+        return ans;
+    }
+
+    public static void printLeft(Node node, ArrayList<Integer> ans){
+            if(node == null){
+                return;
+            }
+            if(node.left != null){
+                ans.add(node.data);
+                printLeft(node.left, ans);
+            }else if(node.right != null){
+                ans.add(node.data);
+                printLeft(node.right, ans);
+            }
+        }
+
+    public static void printLeaf(Node node, ArrayList<Integer> ans){
+            if(node == null){
+                return;
+            }
+            printLeaf(node.left, ans);
+            if(node.left == null && node.right == null){
+                ans.add(node.data);
+            }
+            printLeaf(node.right, ans);
+        }
+
+    public static void printRight(Node node, ArrayList<Integer> ans){
+            if(node == null){
+                return;
+            }
+            if(node.right != null){
+                printRight(node.right, ans);
+                ans.add(node.data);
+            }else if(node.left != null){
+                printRight(node.left, ans);
+                ans.add(node.data);
+            }
+    }
+
+//    ================================================Question 10==================================================================
+//    print binary tree specific level order traversal.......................
+    public static void specificLevelOrderTraversal(Node node){
+        if(node == null){
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        queue.add(null);
+        ArrayList<Integer> answer = new ArrayList<>();
+        Deque<Integer> list = new LinkedList<>();
+        while(!queue.isEmpty()){
+            Node poll = queue.poll();
+            if(poll == null && queue.peek() == null){
+                break;
+            }else if(poll == null && queue.peek() != null){
+                int i = 0;
+                int j = list.size()-1;
+                while(!list.isEmpty()){
+                    answer.add(list.pollFirst());
+                    if(!list.isEmpty()){
+                        answer.add(list.pollLast());
+                    }
+                }
+                queue.add(null);
+            }else{
+                list.add(poll.data);
+                if(poll.left != null){
+                    queue.add(poll.left);
+                }
+                if(poll.right != null){
+                    queue.add(poll.right);
+                }
+            }
+        }
+        while(!list.isEmpty()){
+            answer.add(list.pollFirst());
+            if(!list.isEmpty()){
+                answer.add(list.pollLast());
+            }
+        }
+        for(int k : answer){
+            System.out.print(k + " ");
+        }
+    }
+
+
+//    ======================================================Question 11============================================================
+//    Preorder to treeDisplay....................................
+    public static  int current = 0;
+    public static void preorderToTree(int[] array1, Character[] array2){
+        Node root = new Node(array1[current]);
+        preorderTree(root, array1, array2);
+        preorder(root);
+    }
+
+    public static void preorderTree(Node node, int[] array1, Character[] array2){
+        if(current + 1>= array1.length){
+            return;
+        }
+        if(array2[current] == 'L'){
+            return;
+        }
+        current += 1;
+        node.left = new Node(array1[current]);
+        preorderTree(node.left, array1, array2);
+        current += 1;
+        node.right = new Node(array1[current]);
+        preorderTree(node.right, array1, array2);
+    }
+
+    public  static void preorder(Node root){
+        if(root == null){
+            return;
+        }
+        System.out.print(root.data + " ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+//    ========================================================Question 12======================================================
+//    construct a tree from ancestor matrix
+    public static void AncestorMatrix(int[][] array){
+        for(int i = 0; i < array.length; i++){
+            for (int j = 0; j < array[i].length; i++){
+                if(array[i][j] == 1){
+
+                }
+            }
+        }
+    }
 }
