@@ -388,13 +388,55 @@ public class util {
 
 //    ========================================================Question 12======================================================
 //    construct a tree from ancestor matrix
-    public static void AncestorMatrix(int[][] array){
-        for(int i = 0; i < array.length; i++){
-            for (int j = 0; j < array[i].length; i++){
-                if(array[i][j] == 1){
 
-                }
+
+//    ========================================================Question 13=====================================================
+//    Construct a ancestor matrix from given binary tree
+    public static void constructMatrix(Node root){
+        int max = max(root, 0);
+        int[][] matrix = new int[max+1][max+1];
+        ArrayList<Integer> array = new ArrayList<>();
+        fillMatrix(matrix, root, array);
+        printMatrix(matrix);
+    }
+    public static int max(Node root, int max){
+        if(root == null){
+            return max;
+        }
+        if(root.data > max){
+            max = root.data;
+        }
+        int max1 = max(root.left, max);
+        int max2 = max(root.right, max);
+        max = Math.max(max, Math.max(max1, max2));
+        return max;
+    }
+
+    public static void fillMatrix(int[][] matrix, Node root, ArrayList<Integer> arr){
+        if(root == null){
+            return;
+        }
+        for(int i : arr){
+            matrix[i][root.data] = 1;
+        }
+        arr.add(root.data);
+        fillMatrix(matrix, root.left, arr);
+        fillMatrix(matrix, root.right, arr);
+        arr.remove(arr.size()-1);
+        return;
+    }
+
+    public static void printMatrix(int[][] matrix){
+        for(int i = 0; i < matrix.length; i++){
+            for (int j = 0; j < matrix[0].length; j++){
+                System.out.print(matrix[i][j] + " ");
             }
+            System.out.println();
         }
     }
+
+
+//    ===================================================Question 14================================================================
+//    construct a binary tree from parent array......................................................
+
 }

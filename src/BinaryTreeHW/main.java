@@ -4,17 +4,17 @@ import java.util.*;
 public class main {
     public static void main(String[] args){
 //        Scanner scan = new Scanner(System.in);
-//        Node root = new Node(10);
-//        root.left = new Node(20);
-//        root.right = new Node(30);
+//        Node root = new Node(1);
+//        root.left = new Node(3);
+//        root.right = new Node(10);
 //        root.left.left = new Node(5);
 //        root.left.right = new Node(6);
 //        root.right.left = new Node(7);
 //        root.right.right = new Node(8);
 //        root.left.left.left = new Node(4);
 //        root.left.left.right = new Node(9);
-//        root.right.right.right = new Node(23);
-//        root.left.right.right = new Node(21);
+//        root.right.right.right = new Node(11);
+//        root.left.right.right = new Node(12);
 //        root.left.left.left.left = new Node(2);
 //        util.MorrisInorder(root);
 //        util.postOrderIterative2StackMethod(root);
@@ -54,8 +54,9 @@ public class main {
         root.right.right.right.left = new Node(30);
         root.right.right.right.right = new Node(31);
 //        util.specificLevelOrderTraversal(root);
-        int[] array1 = {10, 20, 5, 4, 9, 6, 30, 7, 8};
-        Character[] array2 = {'N', 'N', 'N', 'L', 'L', 'L', 'N', 'L', 'L'};
+//        int[] array1 = {10, 20, 5, 4, 9, 6, 30, 7, 8};
+//        Character[] array2 = {'N', 'N', 'N', 'L', 'L', 'L', 'N', 'L', 'L'};
 //        util.preorderToTree(array1, array2);
+        util.constructMatrix(root);
     }
 }
