@@ -595,4 +595,90 @@ public class util {
             root = root.right;
         }
     }
+
+
+//    ==============================================Question 20===============================================================
+//    convert tree to doubly linked list circular
+    public static Node head2 = null;
+    public static Node prev2 = null;
+    public static Node bTreeToClist(Node root)
+    {
+        //your code here
+        if(root == null){
+            return null;
+        }
+        Inorder2(root);
+        prev2.right = head2;
+        head2.left = prev2;
+
+        return head2;
+
+    }
+
+    private static void Inorder2(Node root){
+        if(root == null){
+            return;
+        }
+        bTreeToClist(root.left);
+        if(prev2 == null){
+            prev2 = root;
+            head2 = root;
+        }else{
+            root.left = prev2;
+            prev2.right = root;
+            prev2 = root;
+        }
+        bTreeToClist(root.right);
+    }
+
+//    ==============================================Question 21==============================================================
+//convert a tree to forest of even nodes..........................................
+
+//    ==============================================Question 22==============================================================
+//    lowest common ancestor in binary tree............................................................
+    public static Integer lowestCommonAncestor(Node root, Node node1, Node node2){
+        if(node1 == null || node2 == null){
+            return null;
+        }
+        ArrayList<Integer> path = nodeToRootPath(root, node1);
+        ArrayList<Integer> path2 = nodeToRootPath(root, node2);
+//        System.out.print(path.size() + " " + path2.size());
+        Collections.reverse(path);
+        Collections.reverse(path2);
+        int i = 0;
+        while (i < path.size() && i < path2.size()){
+            if(path.get(i) == path2.get(i)){
+                i++;
+            }else{
+                return path.get(i-1);
+            }
+        }
+        return path.get(i-2);
+    }
+
+    private static ArrayList<Integer> nodeToRootPath(Node root, Node node){
+        if(node == null || root == null){
+            ArrayList<Integer> ans = new ArrayList<>();
+            return ans;
+        }
+        if(root == node){
+            ArrayList<Integer> ans = new ArrayList<>();
+            ans.add(root.data);
+            return ans;
+        }
+        ArrayList<Integer> ans1 = nodeToRootPath(root.left, node);
+        if(ans1.size() > 0){
+            ans1.add(root.data);
+            return ans1;
+        }
+        ArrayList<Integer> ans2 = nodeToRootPath(root.right, node);
+        if(ans2.size() > 0){
+            ans2.add(root.data);
+            return ans2;
+        }
+        ArrayList<Integer> blank = new ArrayList<>();
+        return blank;
+    }
+
+
 }

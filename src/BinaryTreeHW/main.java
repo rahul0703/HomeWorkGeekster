@@ -59,6 +59,6 @@ public class main {
 //        util.preorderToTree(array1, array2);
 //        int[] parent = {1, 5, 5, 2, 2, -1, 3};
 //        util.parentArrayToBinaryTree(parent);
-        util.TreeToDoublyLinkedListInPlace(root);
+        System.out.print(util.lowestCommonAncestor(root, root.left.right,root.left.left ));
     }
 }
