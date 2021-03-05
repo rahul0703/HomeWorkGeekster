@@ -19,7 +19,15 @@ public class util {
 
 
 //    Important functions .......................................................
-
+    public static void printTree(Node node){
+        if(node == null){
+            return;
+        }
+        System.out.print(node.data + " ");
+        printTree(node.left);
+        printTree(node.right);
+        return;
+    }
 
 
 //    ===============================================Question 1===========================================================================
@@ -426,7 +434,7 @@ public class util {
         return;
     }
 
-    public static void printMatrix(int[][] matrix){
+    private static void printMatrix(int[][] matrix){
         for(int i = 0; i < matrix.length; i++){
             for (int j = 0; j < matrix[0].length; j++){
                 System.out.print(matrix[i][j] + " ");
@@ -438,5 +446,153 @@ public class util {
 
 //    ===================================================Question 14================================================================
 //    construct a binary tree from parent array......................................................
+    public static void parentArrayToBinaryTree(int[] array){
+        HashMap<Integer, Node> set = new HashMap<>();
+        int root = -1;
+        for(int i = 0; i < array.length; i++){
+            set.put(i, new Node(i));
+            if(array[i] == -1){
+                root = i;
+            }
+        }
+        for(int i = 0; i < array.length; i++){
+            if(set.containsKey(array[i])){
+                Node node = set.get(array[i]);
+                Node child = set.get(i);
+                if(node.left == null){
+                    node.left = child;
+                }else{
+                    node.right = child;
+                }
+            }
+        }
+        inorder(set.get(root));
+    }
 
+    private static void inorder(Node root){
+        if(root == null){
+            return;
+        }
+        System.out.print(root.data + " ");
+        inorder(root.left);
+        inorder(root.right);
+    }
+
+//    =================================================Question 15=============================================================
+//    Create a doubly linkedList from a ternary tree................................
+    public static DoublyLinkedList doublyLinkedListFromTernaryTree(ternaryNode root){
+        ArrayList<ternaryNode> list = new ArrayList<>();
+        InorderTernary(root, list);
+        ArrayList<DoublyLinkedList> list2 = new ArrayList<>();
+        for(ternaryNode node : list){
+            list2.add(new DoublyLinkedList(node));
+        }
+        for(int i = 1; i < list2.size(); i++){
+            list2.get(i-1).next = list2.get(i);
+            list2.get(i).prev = list2.get(i-1);
+        }
+        return list2.get(0);
+    }
+
+    private static void InorderTernary(ternaryNode node, ArrayList<ternaryNode> list){
+        if(node == null){
+            return;
+        }
+        list.add(node);
+        InorderTernary(node.left, list);
+        InorderTernary(node.middle, list);
+        InorderTernary(node.right, list);
+    }
+
+//    ==================================================Question 16===========================================================
+    public static Node bToDLL(Node root) {
+	//  Your code here
+	    ArrayList<Node> list = new ArrayList<>();
+	    InOrder(root, list);
+	    list.get(0).left = null;
+	    list.get(list.size() -1).right = null;
+	    for(int i = 1; i < list.size(); i++){
+	        list.get(i-1).right = list.get(i);
+	        list.get(i).left = list.get(i-1);
+	    }
+	    return list.get(0);
+    }
+
+    private static void InOrder(Node node, ArrayList<Node> list){
+        if(node == null){
+            return;
+        }
+        InOrder(node.left, list);
+        list.add(node);
+        InOrder(node.right, list);
+    }
+
+
+//    ==============================================Question 17============================================================
+//    transform tree to sumTree.......................
+    public static void toSumTree(Node root){
+        //add code here.
+        int finaldata = postOrder(root);
+        return;
+    }
+
+    private static int postOrder(Node node){
+        if(node == null){
+            return 0;
+        }
+        int data1 = postOrder(node.left);
+        int data2 = postOrder(node.right);
+        int data = node.data;
+        node.data = data1 + data2;
+        return node.data + data;
+    }
+
+//    =================================================Question 18==========================================================
+//    Transform the tree that is store sum of all left sub tree and self...........................................
+    public static void leftSubTreeSum(Node node){
+        int dataFinal = preOrderLeftSubtree(node);
+        printTree(node);
+        return;
+    }
+    private static int preOrderLeftSubtree(Node node){
+        if(node == null){
+            return 0;
+        }
+        int data = preOrderLeftSubtree(node.left);
+        int value = node.data;
+        node.data = value + data;
+        int data1 = preOrderLeftSubtree(node.right);
+        return node.data + data1;
+    }
+
+//=================================================Question 19================================================================
+//    (IMP) Convert binary tree to doubly linked list
+    public static Node prev = null;
+    public static Node Head = null;
+    public static void TreeToDoublyLinkedListInPlace(Node root){
+        InorderInPlace(root);
+        printLinkedList(Head);
+    }
+    private static void InorderInPlace(Node node){
+        if(node == null){
+            return;
+        }
+        InorderInPlace(node.left);
+        if(prev == null){
+            prev = node;
+            Head = node;
+        }else{
+            node.left = prev;
+            prev.right = node;
+            prev = node;
+        }
+        InorderInPlace(node.right);
+        return;
+    }
+    private static void printLinkedList(Node root){
+        while (root != null){
+            System.out.print(root.data + " ");
+            root = root.right;
+        }
+    }
 }
