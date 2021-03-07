@@ -10,9 +10,10 @@ public class main {
             array[i] = scan.nextInt();
         }
 //        int[] answer = client.NextGreater(array);
-        int[] answer = client.nextSmallerElements(array);
-        for(int i : answer){
-            System.out.print(i + " ");
-        }
+//        int[] answer = client.previousGreaterElements(array);
+//        for(int i : answer){
+//            System.out.print(i + " ");
+//        }
+        System.out.println(client.largestHistogramArea(array));
     }
 }
