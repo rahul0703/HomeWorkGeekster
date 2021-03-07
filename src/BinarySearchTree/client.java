@@ -141,10 +141,13 @@ public class client {
         }
         int x = root.data;
         int y = sum - x;
-        boolean ans = find(node, y);
-        if(ans == true){
-            System.out.println(x + " " + y);
+        if(x != y){
+            boolean ans = find(node, y);
+            if(ans == true){
+                System.out.println(x + " " + y);
+            }
         }
+
         targetSumPair(node, root.left, sum);
         targetSumPair(node, root.right, sum);
     }
