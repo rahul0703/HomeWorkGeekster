@@ -131,7 +131,7 @@ public class client {
         targetSumPair(root, root, sum);
         return;
     }
-    private static HashSet<Integer> set;
+    private static HashSet<Integer> set = new HashSet<>();
     public static void targetSumPair(Node node, Node root, int sum){
         if(root == null){
             return;
@@ -141,11 +141,15 @@ public class client {
         }
         int x = root.data;
         int y = sum - x;
-        if(x != y){
-            boolean ans = find(node, y);
-            if(ans == true){
-                System.out.println(x + " " + y);
+        if(!set.contains(x)){
+            if(x != y){
+                boolean ans = find(node, y);
+                if(ans == true){
+                    System.out.println(x + " " + y);
+                }
             }
+            set.add(x);
+            set.add(y);
         }
 
         targetSumPair(node, root.left, sum);
