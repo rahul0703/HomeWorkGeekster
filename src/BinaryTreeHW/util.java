@@ -681,4 +681,61 @@ public class util {
     }
 
 
+//    ============================================question =========================================================
+//   (IMP) make tree from ancestor matrix.........................
+    public static Node ancestorMatrixToTree(int[][] array){
+        int[] parent = new int[array.length];
+        HashMap<Integer, Integer> IndexCount = new HashMap<>();
+        for(int i = 0; i < array.length; i++){
+            int sum = 0;
+            for(int j = 0; j < array[0].length; j++){
+                if(array[i][j] == 1){
+                    sum++;
+                }
+            }
+            IndexCount.put(i, sum);
+        }
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(IndexCount.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        });
+        Node root = null;
+        Node[] node = new Node[array.length];
+        for(Map.Entry<Integer, Integer> set : IndexCount.entrySet()) {
+            int key = set.getKey();
+            int val = set.getValue();
+            node[key] = new Node(key);
+        }
+        for(Map.Entry<Integer, Integer> set : IndexCount.entrySet()){
+            int key = set.getKey();
+            int val = set.getValue();
+            node[key] = new Node(key);
+            if(val != 0){
+                for(int i = 0; i < parent.length; i++){
+                    if(parent[i] == 0 && array[key][i] != 0){
+                        if(node[key].left == null){
+                            node[key].left = node[i];
+                        }else{
+                            node[key].right = node[i];
+                        }
+                        parent[i] = 1;
+                    }
+                    root = node[key];
+                }
+            }
+        }
+        return root;
+    }
+
+    public static void DisplayTree(Node root){
+        if(root == null){
+            return;
+        }
+        System.out.print(root.data + " ");
+        DisplayTree(root.left);
+        DisplayTree(root.right);
+    }
 }
