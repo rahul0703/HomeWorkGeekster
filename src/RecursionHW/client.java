@@ -1,6 +1,7 @@
 package RecursionHW;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Stack;
 
@@ -254,5 +255,41 @@ public class client {
             ansFinal.add(i);
         }
         return ansFinal;
+    }
+
+//    ==================================================Question 6=========================================================
+//    Print palindromic partition of strings.............................
+//    public static ArrayList<ArrayList<String>> palindromicPartitionStrings(String str){
+//        ArrayList<ArrayList<String>> ans = new ArrayList<>();
+//        ArrayList<ArrayList<String>> ansFinal = palindromicSubstring(str, " ");
+//        for(ArrayList<String> an : ansFinal){
+////            Collections.reverse(an);
+////            if(isPalindrome(an)){
+//                ans.add(an);
+////            }
+//        }
+//        System.out.println(ans.size());
+//        return ans;
+//    }
+
+//    private static ArrayList<String> palindromicSubstring(String str, ArrayList<String> current) {
+//        if(str.length() == 1){
+//            for(St: current){
+//
+//            }
+//        }
+//    }
+
+    public static boolean isPalindrome(ArrayList<String> ans){
+        for(String str : ans){
+            for(int i = 0; i < str.length(); i++){
+                char ch = str.charAt(i);
+                char ch2 = str.charAt(str.length()-i-1);
+                if(ch != ch2){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

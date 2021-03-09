@@ -41,5 +41,12 @@ public class main {
 //        for(String st : ans){
 //            System.out.println(st);
 //        }
+//        ArrayList<ArrayList<String>> ans = client.palindromicPartitionStrings("geeks");
+//        for(ArrayList<String> ans1 : ans){
+//            for(String s : ans1){
+//                System.out.print(s + " ");
+//            }
+//            System.out.println();
+//        }
     }
 }
