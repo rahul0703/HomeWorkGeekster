@@ -215,5 +215,44 @@ public class client {
     }
 
 //    ===============================================Question 5=============================================================
-//
+//word break problem dictionary
+    private static HashSet<String> set1 = new HashSet<>();
+    public static ArrayList<String> wordBreakDictionary(String str, HashSet<String> hash){
+        int n = str.length();
+        ArrayList<String> ans = wordBreak(str, 0, "", n, hash, "");
+        return ans;
+    }
+    private static ArrayList<String> wordBreak(String str, int index, String current, int n, HashSet<String> set, String as){
+        if(index == str.length()){
+            ArrayList<String> ans = new ArrayList<>();
+            if(set.contains(current)){
+                String a = as + " " + current;
+                a = a.trim();
+                if(!set1.contains(a)){
+                    ans.add(a);
+                    set1.add(a);
+                }
+            }
+            String st2 = as + current;
+            st2 = st2.trim();
+            if(set.contains(st2) && !set1.contains(st2)){
+                ans.add(st2);
+                set1.add(st2);
+            }
+            return ans;
+        }
+        ArrayList<String> ansFinal = new ArrayList<>();
+        String st = str.charAt(index) + "";
+        if(set.contains(current)){
+            ArrayList<String> ans1 = wordBreak(str, index+1, st, n, set, as + " " + current);
+            for(String i : ans1){
+                ansFinal.add(i);
+            }
+        }
+        ArrayList<String> ans2 = wordBreak(str, index+1, current + st, n, set, as);
+        for(String i : ans2){
+            ansFinal.add(i);
+        }
+        return ansFinal;
+    }
 }

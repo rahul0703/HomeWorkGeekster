@@ -27,9 +27,19 @@ public class main {
 //            }
 //            System.out.println();
 //        }
-        ArrayList<String> ans = client.invalidParanthesis("()(()())(()(()");
-        for(String st : ans){
-            System.out.println(st);
-        }
+//        HashSet<String> set = new HashSet<>();
+//        set.add("i");
+//        set.add("like");
+//        set.add("sam");
+//        set.add("sung");
+//        set.add("samsung");
+//        set.add("mobile");
+//        set.add("ice");
+//        set.add("cream");
+//        set.add("icecream");
+//        ArrayList<String> ans = client.wordBreakDictionary("ilikesamsungmobile", set);
+//        for(String st : ans){
+//            System.out.println(st);
+//        }
     }
 }
