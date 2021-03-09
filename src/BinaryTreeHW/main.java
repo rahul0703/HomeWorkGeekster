@@ -63,6 +63,6 @@ public class main {
         int mat[][] = {
                 { 0, 0, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1, 0 }, { 0, 0, 0, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1, 0 }};
         Node root1 = util.ancestorMatrixToTree(mat);
-        util.DisplayTree(root1);
+        util.printTree(root1);
     }
 }
