@@ -1,4 +1,4 @@
-package PriorityQueue;
+package PriorityQueueClass;
 
 public class element implements Comparable<element>{
     int value;

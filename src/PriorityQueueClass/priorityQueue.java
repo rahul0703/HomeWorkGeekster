@@ -1,4 +1,4 @@
-package PriorityQueue;
+package PriorityQueueClass;
 
 public class priorityQueue {
 }
