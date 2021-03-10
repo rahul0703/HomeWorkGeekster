@@ -299,7 +299,7 @@ class util {
     }
 
 //    =====================================================Question 7================================================================
-//    Median of 2 sorted array of different sizes
+//    (IMP) Median of 2 sorted array of different sizes
     public static int median2SortedArrays(int[] array1, int[] array2){
         int x = array1.length;
         int y = array2.length;

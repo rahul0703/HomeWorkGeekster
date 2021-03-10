@@ -139,4 +139,54 @@ public class util {
         }
         return ans;
     }
+
+//
+
+    public static void shortestPalindromicString(int N, int k, Character[] array) {
+        ArrayList<String> sample = new ArrayList<>();
+        ArrayList<String> answer = shortestPalindrome("",array,0, k);
+        Collections.sort(answer);
+        System.out.println(answer.get(0));
+        return;
+    }
+    private static ArrayList<String> shortestPalindrome(String ans, Character[] array, int current, int k){
+        if(ans.length() == k && isPalindrome(ans)){
+            ArrayList<String> answermain = new ArrayList<>();
+            answermain.add(ans);
+            return answermain;
+        }
+        if(ans.length() > k || current >= array.length){
+            ArrayList<String> answermain = new ArrayList<>();
+            return answermain;
+        }
+        ArrayList<String> finalAnswer = new ArrayList<>();
+        for(int l = 0; l < ans.length(); l++){
+            String que = ans.substring(0, l) + array[current] + ans.substring(l);
+            ArrayList<String> quelist = shortestPalindrome(que, array, current+1, k);
+            for(String st : quelist){
+                finalAnswer.add(st);
+            }
+        }
+
+        String que1 = ans;
+        ArrayList<String> quelist1 = shortestPalindrome(que1, array, current+1, k);
+        for(String st : quelist1){
+            finalAnswer.add(st);
+        }
+        String que2 = array[current] + "";
+        ArrayList<String> quelist2 = shortestPalindrome(que2, array, current+1, k);
+        for(String st : quelist2){
+            finalAnswer.add(st);
+        }
+        return finalAnswer;
+    }
+
+    private static boolean isPalindrome(String ans){
+        for(int i = 0; i < ans.length(); i++){
+            if(ans.charAt(i) != ans.charAt(ans.length() - 1 - i)){
+                return false;
+            }
+        }
+        return true;
+    }
 }

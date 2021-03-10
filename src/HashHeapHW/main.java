@@ -11,6 +11,8 @@ public class main {
 //        for(int i : ans){
 //            System.out.print(i + " ");
 //        }
-        System.out.println(util.missingNumber(array1, array1.length));
+//        System.out.println(util.missingNumber(array1, array1.length));
+        Character[] arrayChar = {'a', 'a', 'b', 'c', 'c', 'b', 'c'};
+        util.shortestPalindromicString(5, 5, arrayChar);
     }
 }
