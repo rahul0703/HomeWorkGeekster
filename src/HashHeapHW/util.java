@@ -346,6 +346,86 @@ public class util {
     }
 
 //    =============================================================================================================================
+//Find k closest elements
+public static int[] KClosestElemets(int[] array, int k, int num){
+    int i = 0;
+    int j = array.length -1;
+    int index = binarySearch(array, num, i , j);
+    int[] answer = new int[k];
+    if(array[index] == num){
+        int kL = index-1;
+        int kR = index+1;
+        int count = 0;
+        while(count < k){
+            if(kL >= 0 && kR < array.length && array[index] - array[kL] < array[kR] - array[index]){
+                answer[count] = array[kL];
+                count++;
+                kL--;
+            }else if(kL >= 0 && kR < array.length && array[index] - array[kL] >= array[kR] - array[index]){
+                answer[count] = array[kR];
+                count++;
+                kR++;
+            }else if(kR < array.length){
+                answer[count] = array[kR];
+                count++;
+                kR++;
+            }else{
+                answer[count] = array[kL];
+                count++;
+                kL--;
+            }
+        }
+        return answer;
+    }else{
+        int kL = index;
+        int kR = index+1;
+        int count = 0;
+        while(count < k) {
+            if(kL >= 0 && kR < array.length && num - array[kL] < array[kR] - num){
+                answer[count] = array[kL];
+                count++;
+                kL--;
+            }else if(kL >= 0 && kR < array.length && num - array[kL] >= array[kR] - num){
+                answer[count] = array[kR];
+                count++;
+                kR++;
+            }else if(kR < array.length){
+                answer[count] = array[kR];
+                count++;
+                kR++;
+            }else{
+                answer[count] = array[kL];
+                count++;
+                kL--;
+            }
+        }
+        return answer;
+    }
+}
+
+
+    public static int binarySearch(int[] array, int num, int start, int end){
+        if(start > end){
+            return -1;
+        }
+        int mid = start + (end-start)/2;
+        if(array[mid] == num){
+            return mid;
+        }else if(mid > 0 && mid < array.length-1 && array[mid-1] < num && array[mid+1] > num){
+            return mid;
+        }else if(mid == 0){
+            return mid;
+        }else if(mid == array.length-1){
+            return mid;
+        }else{
+            if(array[mid] > num){
+                return binarySearch(array, num, start, mid);
+            }else{
+                return binarySearch(array, num, mid+1, end);
+            }
+        }
+    }
+
 //
 
 }

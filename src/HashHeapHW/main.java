@@ -33,7 +33,11 @@ public class main {
 //        for(int i : array){
 //            System.out.print(i + " ");
 //        }
-
+        int[] arrayQue = {1, 2, 3, 4, 10, 11, 13, 16, 19, 25, 26, 27, 30};
+        int[] answer = util.KClosestElemets(arrayQue, 3, 22);
+        for(int i : answer){
+            System.out.print(i + " ");
+        }
 
     }
 }
