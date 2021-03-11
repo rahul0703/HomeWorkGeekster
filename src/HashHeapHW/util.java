@@ -19,6 +19,8 @@ public class util {
         return queue.poll();
     }
 
+
+//    ======================================================================================================================
 //(IMP) Maximum element of the sliding window of size k
     public static ArrayList<Integer> maxiInAllSlidingWindow(int[] array, int k) {
 //        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
@@ -72,6 +74,7 @@ public class util {
         return ans;
     }
 
+//    ====================================================================================================================
 //    Smallest Positive missing number
     static int missingNumber(int arr[], int size) {
         int shift = segregate(arr, size);
@@ -113,7 +116,7 @@ public class util {
         return size + 1;
     }
 
-
+//=======================================================================================================================
 //    Maximum repeating number
     public static int maxiRepeatNum(int[] array){
         int n = array.length;
@@ -140,7 +143,7 @@ public class util {
         return ans;
     }
 
-//
+//=========================================================================================================================
 
     public static void shortestPalindromicString(int N, int k, Character[] array) {
         ArrayList<String> sample = new ArrayList<>();
@@ -189,4 +192,117 @@ public class util {
         }
         return true;
     }
+
+//    ================================================================================================================
+//    (IMP) Kth largest element in the stream of array..........................................................
+    public static int[] kthLargest(int k, int[] arr, int n) {
+        int[] answer = new int[n];
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for(int i = 0; i < n; i++){
+            if(i < k-1){
+                queue.add(arr[i]);
+                answer[i] = -1;
+            }else{
+                if(queue.size() < k){
+                    queue.add(arr[i]);
+                    answer[i] = queue.peek();
+                }else{
+                    if(arr[i] < queue.peek()){
+                        answer[i] = queue.peek();
+                    }else{
+                        queue.poll();
+                        queue.add(arr[i]);
+                        answer[i] = queue.peek();
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+
+//    ==============================================================================================================
+//    K-th smallest element after removing some integers from natural numbers
+    public static int KthSmallestAfterRemoving(int[] array, int k){
+        Arrays.sort(array);
+        int i = 0;
+        while(array[i] <= k){
+            i++;
+            k++;
+        }
+        return k;
+    }
+
+//    Count the surpasser of the element in the array
+//    public static int[] surpasserCount(int[] array){
+//
+//    }
+
+//    =====================================================================================================================
+// (IMP) Count the number of inversion in the array...........................................
+    private static int inversion;
+    public static int countInversion(int[] array){
+        int i = 0;
+        int j = array.length-1;
+        merge(array, i, j);
+        int ans = inversion;
+        inversion = 0;
+        return ans;
+    }
+
+    private static void merge(int[] array, int start, int end){
+        if(start >= end) {
+            return;
+        }
+        int mid = start + (end - start)/2;
+        merge(array, start, mid);
+        merge(array, mid+1, end);
+        part(array, start, mid, end);
+
+        return;
+    }
+
+    private static void part(int[] array, int start, int mid, int end){
+        int[] firsthalf = new int[mid - start + 1];
+        int[] secondHalf = new int[end - mid];
+        for(int i = start; i < mid+1; i++){
+            firsthalf[i-start] = array[i];
+        }
+        for(int i = mid+1; i < end+1; i++){
+            secondHalf[i-mid-1] = array[i];
+        }
+        int st1 = 0;
+        int st2 = 0;
+        int h = start;
+        while(st1 < firsthalf.length && st2 < secondHalf.length){
+            if(firsthalf[st1] > secondHalf[st2]){
+                inversion += firsthalf.length - st1;
+                array[h] = secondHalf[st2];
+                st2++;
+                h++;
+            }else{
+                array[h] = firsthalf[st1];
+                h++;
+                st1++;
+            }
+        }
+        if(st1 >= firsthalf.length && st2 < secondHalf.length){
+            while(st2 < secondHalf.length){
+                array[h] = secondHalf[st2];
+                h++;
+                st2++;
+            }
+        }
+        if(st2 >= secondHalf.length && st1 < firsthalf.length){
+            while (st1 < firsthalf.length){
+                array[h] = firsthalf[st1];
+                h++;
+                st1++;
+            }
+        }
+        return;
+    }
+
+//    =====================================================================================================================
+
+
 }
