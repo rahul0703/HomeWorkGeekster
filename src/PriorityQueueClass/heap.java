@@ -8,6 +8,14 @@ class heap{
     public heap(){
 
     }
+    public heap(int[] array){
+        for(int i : array){
+            this.list.add(i);
+        }
+        for(int i = (size()/2)-1; i >= 0; i--){
+            downheapify(i);
+        }
+    }
     public void add(int data){
         this.list.add(data);
         upheapify(this.list.size()-1);

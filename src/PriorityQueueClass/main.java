@@ -21,18 +21,21 @@ public class main {
 //        for(int i : ans){
 //            System.out.print(i + " ");
 //        }
-        heap He = new heap();
-        He.add(1);
-        He.add(10);
-        He.add(2);
-        He.add(9);
-        He.add(7);
-        He.add(8);
-        He.display();
-        System.out.println();
-        int remov = He.remove();
-        He.display();
-        System.out.println();
-        System.out.println(remov);
+//        heap He = new heap();
+//        He.add(1);
+//        He.add(10);
+//        He.add(2);
+//        He.add(9);
+//        He.add(7);
+//        He.add(8);
+//        He.display();
+//        System.out.println();
+//        int remov = He.remove();
+//        He.display();
+//        System.out.println();
+//        System.out.println(remov);
+        int[] array = {2, 4, 3, 6, 7, 5, 10, 13, 12};
+        heap h2 = new heap(array);
+        h2.display();
     }
 }
