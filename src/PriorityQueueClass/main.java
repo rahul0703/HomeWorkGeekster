@@ -16,10 +16,23 @@ public class main {
 //            System.out.print(i + " ");
 //        }
 
-        int[] array = {1, 3,2,5,4,7,6,9,8,10,11,14,13,12};
-        ArrayList<Integer> ans = util.kDistanceFar(array, 3);
-        for(int i : ans){
-            System.out.print(i + " ");
-        }
+//        int[] array = {1, 3,2,5,4,7,6,9,8,10,11,14,13,12};
+//        ArrayList<Integer> ans = util.kDistanceFar(array, 3);
+//        for(int i : ans){
+//            System.out.print(i + " ");
+//        }
+        heap He = new heap();
+        He.add(1);
+        He.add(10);
+        He.add(2);
+        He.add(9);
+        He.add(7);
+        He.add(8);
+        He.display();
+        System.out.println();
+        int remov = He.remove();
+        He.display();
+        System.out.println();
+        System.out.println(remov);
     }
 }

@@ -303,6 +303,49 @@ public class util {
     }
 
 //    =====================================================================================================================
+//    Pancake problem
+    public static ArrayList<Integer> PancakePrblem(int[] array, int n){
+        int i = n-1;
+        ArrayList<Integer> ans = new ArrayList<>();
+        while(i >= 0){
+            int maxIndedx = findMaxIndex(array, i);
+            if(maxIndedx > 0){
+                swap(array, maxIndedx);
+                ans.add(maxIndedx+1);
+            }
+            swap(array, i);
+            ans.add(i+1);
+            i--;
+        }
+        return ans;
+    }
 
+    public static int findMaxIndex(int[] array, int i){
+        int maxIndex = -1;
+        int max = Integer.MIN_VALUE;
+        for(int c = 0; c <= i; c++){
+            if(array[c] > max){
+                max = array[c];
+                maxIndex = c;
+            }
+        }
+        return maxIndex;
+    }
+
+    public static void swap(int[] array, int index){
+        int start = 0;
+        int end = index;
+        while(start <= end){
+            int temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
+        }
+        return;
+    }
+
+//    =============================================================================================================================
+//
 
 }
