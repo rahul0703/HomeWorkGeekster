@@ -48,5 +48,12 @@ public class main {
 //            }
 //            System.out.println();
 //        }
+//        int[][] question = {{1, 1, 1, 0, 0, 0}, {1, 1, 0, 1, 0, 1},{0, 1, 1, 0, 1, 1}, {0, 1 ,1 ,1, 1, 1}, {1, 0, 1, 0, 1, 1},{0, 1, 0, 1, 0, 1}};
+////        int answer = client.ShortestPathFullOfLandMines(question, 6);
+////        System.out.println(answer);
+//        client.longestPossiblePath(question, 0, 0, 5, 5);
+//        int[] array = {2, 4, 6, 8};
+//        client.getAllCombinations(array, 8, 4);
+        client.cryptarythmicPuzzle("send", "more", "money");
     }
 }

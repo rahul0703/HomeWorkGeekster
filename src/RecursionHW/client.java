@@ -1,9 +1,6 @@
 package RecursionHW;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 public class client {
 //    ===================================================Important Functions=============================================================
@@ -292,4 +289,320 @@ public class client {
         }
         return true;
     }
+
+//==================================================================================================================================
+//    find the shortest safe route in the path full of landmines.
+    private static int shortestLength = Integer.MAX_VALUE;
+    public static int ShortestPathFullOfLandMines(int[][] array, int n){
+        int startRow = 0;
+        int startCol = 0;
+        modifyPath(array, n);
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+        boolean[][] visited = new boolean[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                visited[i][j] = false;
+            }
+        }
+        findPath(array, n, startRow, startCol, 0, visited);
+        int ans = shortestLength;
+        if(ans == Integer.MAX_VALUE){
+            System.out.println("False");
+            return -1;
+        }
+        return ans;
+    }
+    private static void modifyPath(int[][] array, int n){
+        boolean[][] visited = new boolean[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                visited[i][j] = false;
+            }
+        }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++) {
+                if (array[i][j] == 0 && visited[i][j] == false) {
+                    if (i > 0 && visited[i - 1][j] == false && array[i-1][j] != 0) {
+                        array[i - 1][j] = 0;
+                        visited[i - 1][j] = true;
+                    }
+                    if (i < n - 1 && visited[i + 1][j] == false && array[i+1][j] != 0) {
+                        array[i + 1][j] = 0;
+                        visited[i + 1][j] = true;
+                    }
+                    if (j > 0 && visited[i][j - 1] == false && array[i][j-1] != 0) {
+                        array[i][j - 1] = 0;
+                        visited[i][j - 1] = true;
+                    }
+                    if (j < array.length - 1 && visited[i][j + 1] == false && array[i][j+1] != 0) {
+                        array[i][j + 1] = 0;
+                        visited[i][j + 1] = true;
+                    }
+                    visited[i][j] = true;
+                }
+            }
+        }
+        return;
+    }
+
+    private static void findPath(int[][] array, int n, int row, int col, int sum, boolean[][] visited){
+        if(row == n-1){
+            if(sum < shortestLength){
+                shortestLength = sum;
+                return;
+            }
+        }
+        if(col < n-1){
+            if(isSafe(array, row, col+1, visited)){
+                visited[row][col+1] = true;
+                findPath(array, n, row, col+1, sum+1, visited);
+                visited[row][col+1] = false;
+            }
+        }
+        if(col > 0){
+            if(isSafe(array, row, col-1, visited)){
+                visited[row][col-1] = true;
+                findPath(array, n, row, col-1, sum+1, visited);
+                visited[row][col-1] = false;
+            }
+        }
+        if(row > 0){
+            if(isSafe(array, row-1, col, visited)){
+                visited[row-1][col] = true;
+                findPath(array, n, row-1, col, sum+1, visited);
+                visited[row-1][col] = false;
+            }
+        }
+        if(row < n-1){
+            if(isSafe(array, row+1, col, visited)){
+                visited[row+1][col] = true;
+                findPath(array, n, row+1, col, sum+1, visited);
+                visited[row+1][col] = false;
+            }
+        }
+        return;
+    }
+
+    public static boolean isSafe(int[][] array, int row, int col, boolean[][] visited){
+        if(array[row][col] == 0){
+            return false;
+        }
+        if(visited[row][col] == true){
+            return false;
+        }
+        return true;
+    }
+
+//    ===========================================================================================================================
+//-=================================================================================================================================
+//Combination sum
+
+    private static ArrayList<ArrayList<Integer>> answerList = new ArrayList<>();
+    public static ArrayList<ArrayList<Integer>> combination(ArrayList<Integer> array, int sum){
+        HashSet<Integer> set = new HashSet<>();
+        for(int i : array){
+            set.add(i);
+        }
+        array.clear();
+        array.addAll(set);
+        Collections.sort(array);
+        ArrayList<Integer> ans = new ArrayList<>();
+        combinationSum1(array, sum, ans, 0);
+        return answerList;
+    }
+
+    private static void combinationSum1(ArrayList<Integer> array, int sumCurrent, ArrayList<Integer> ans, int index){
+        if(sumCurrent == 0){
+            ArrayList<Integer> newList = new ArrayList<>();
+            for(int i : ans){
+                newList.add(i);
+            }
+            answerList.add(newList);
+            return;
+        }
+        if(sumCurrent < 0){
+            return;
+        }
+
+        for(int i = index; i < array.size(); i++){
+            ans.add(array.get(i));
+            sumCurrent -= array.get(i);
+            combinationSum1(array, sumCurrent, ans, i);
+            sumCurrent += array.get(i);
+            ans.remove(ans.size()-1);
+        }
+        return;
+    }
+
+//    K Partition with equal sum
+//    =====================================================================================================================
+     public static boolean KPartitionSum(int[] array, int k){
+         int sum = 0;
+          for(int i : array){
+              sum += i;
+          }
+          if(k > array.length){
+
+              return false;
+          }
+          if(sum % k != 0){
+              return false;
+          }
+          int[] sumInt = new int[k];
+          boolean ansFinal = Kpart(array, k, 0, sumInt);
+          return ansFinal;
+     }
+     // private static boolean ansFinal = false;
+     public static boolean Kpart(int[] array, int k, int index, int[] sumInt){
+         if(index == array.length){
+             for(int i = 1; i < sumInt.length; i++){
+                 if(sumInt[i] != sumInt[i-1] || sumInt[i] == 0){
+                     return false;
+                 }
+             }
+             return true;
+         }
+
+         for(int i = 0; i < k; i++){
+             sumInt[i] += array[index];
+             // answer.get(i).add(array[index]);
+             boolean ret = Kpart(array, k, index + 1, sumInt);
+             if(ret == true){
+                 return true;
+             }
+             // answer.get(i).remove(answer.get(i).size()-1);
+             sumInt[i] -= array[index];
+         }
+         return false;
+     }
+
+
+//     =======================================================================================================================
+//    Longest possible path
+    private static int longestpath = Integer.MIN_VALUE;
+    public static void longestPossiblePath(int[][] array, int source1, int source2,  int desX, int desY){
+        boolean[][] boolArray = new boolean[array.length][array.length];
+        for(int i = 0; i < array.length; i++){
+            for(int j = 0; j < array.length; j++){
+                boolArray[i][j] = false;
+            }
+        }
+        int[] xPath = {1, -1, 0, 0};
+        int[] yPath = {0, 0, 1, -1};
+        boolArray[source1][source2] = true;
+        LongestPath(array, desX, desY,  source1, source2, boolArray, 1, xPath, yPath);
+        System.out.println(longestpath);
+    }
+    private static void LongestPath(int[][] array, int desX, int desY, int currentX, int currentY, boolean[][] boolArray, int pathLength, int[] xPath, int[] yPath){
+        if(currentX == desX && currentY == desY){
+            if(pathLength > longestpath){
+                longestpath = pathLength;
+                for(boolean[] i : boolArray){
+                    for(boolean j : i){
+                        System.out.print(j == true ? 1 + " " : 0 + " ");
+                    }
+                    System.out.println();
+                }
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+            }
+            return;
+        }
+        for(int i = 0; i < xPath.length; i++){
+            int NewX = currentX + xPath[i];
+            int NewY = currentY + yPath[i];
+            if(isSafeLongest(array, boolArray, NewX, NewY)){
+                boolArray[NewX][NewY] = true;
+                LongestPath(array, desX, desY, NewX, NewY, boolArray, pathLength+1, xPath, yPath);
+                boolArray[NewX][NewY] = false;
+            }
+        }
+        return;
+    }
+
+    private static boolean isSafeLongest(int[][] array, boolean[][] boolArray, int x, int y){
+        if(x < 0 || x >= array.length || y < 0 || y >= array.length){
+            return false;
+        }
+        if(boolArray[x][y] == true){
+            return false;
+        }
+        if(array[x][y] == 0){
+            return false;
+        }
+        return true;
+    }
+
+//    ===============================================================================================================================
+//    Crytarhythmic puzzle
+    public static void cryptarythmicPuzzle(String str1, String str2, String str3){
+        TreeMap<Character, Integer> map = new TreeMap<>();
+        StringBuilder sb = new StringBuilder();
+        String[] stringArray = {str1, str2, str3};
+        for(String str : stringArray){
+            for(int i = 0; i < str.length(); i++){
+                char ch = str.charAt(i);
+                if(!map.containsKey(ch)){
+                    map.put(ch, -1);
+                    sb.append(ch);
+                }
+            }
+        }
+        boolean[] array = new boolean[10];
+        for(int i = 0; i < 10; i++){
+            array[i] = false;
+        }
+        String newString = sb.toString();
+        getSumString(newString, map, array, str1, str2, str3, 0);
+    }
+
+    public static void getSumString(String newString, TreeMap<Character, Integer> map, boolean[] array, String str1, String str2, String str3, int current){
+        if(current == newString.length()){
+            int num1 = convertToNumber(str1, map);
+            int num2 = convertToNumber(str2, map);
+            int num3 = convertToNumber(str3, map);
+            if(num1 + num2 == num3){
+                for(Map.Entry<Character, Integer> entry : map.entrySet()){
+                    System.out.print(entry.getKey() + ": " + entry.getValue() + ", ");
+                }
+                System.out.println();
+            }
+            return;
+        }
+        char chPre = newString.charAt(current);
+        for(int i = 0; i < 10; i++){
+            if(array[i] == false){
+                array[i] = true;
+                map.put(chPre, i);
+                getSumString(newString, map, array, str1, str2, str3, current+1);
+                map.put(chPre, -1);
+                array[i] = false;
+            }
+        }
+        return;
+    }
+
+    public static int convertToNumber(String str, TreeMap<Character, Integer> map){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < str.length(); i++){
+            char ch = str.charAt(i);
+            int value = map.get(ch);
+            sb.append(value);
+        }
+        String valueString = sb.toString();
+        if(valueString.charAt(0) == '0'){
+            valueString = valueString.substring(1);
+        }
+        int answer = Integer.parseInt(valueString);
+        return answer;
+    }
+
+//    ============================================================================================================================
+
+
 }
+

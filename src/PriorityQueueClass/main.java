@@ -34,8 +34,23 @@ public class main {
 //        He.display();
 //        System.out.println();
 //        System.out.println(remov);
-        int[] array = {2, 4, 3, 6, 7, 5, 10, 13, 12};
-        heap h2 = new heap(array);
-        h2.display();
+        int[] array = {4, 3, 2, 3, 5, 2, 1};
+//        util.KPartitionSum(array, 5);
+//        ArrayList<Integer> que = new ArrayList<>();
+//        que.add(2);
+//        que.add(6);
+//        que.add(4);
+//        que.add(8);
+//        que.add(3);
+//        que.add(5);
+//        util.combination(que, 8);
+//        for(ArrayList<Integer> i : answer){
+//            for(int j : i){
+//                System.out.print(j + " ");
+//            }
+//            System.out.println();
+//        }
+//        heap h2 = new heap(array);
+//        h2.display();
     }
 }

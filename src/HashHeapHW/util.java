@@ -426,6 +426,42 @@ public static int[] KClosestElemets(int[] array, int k, int num){
         }
     }
 
-//
+//Connect n ropes to reduce cost
+    public static int ConnectRopes(int[] array){
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for(int i : array){
+            queue.add(i);
+        }
+        int sum = 0;
+        while(!queue.isEmpty()){
+            if(queue.size() == 1){
+                return sum;
+            }else{
+                int a = queue.poll();
+                int b = queue.poll();
+                int sum1 = a + b;
+                sum += sum1;
+                queue.add(sum1);
+            }
+        }
+        return sum;
+    }
 
-}
+
+//    Employee chaining
+//    public static void employeeChaining(HashMap<Character, Character> hashmap){
+//        HashSet<Node> set = new HashSet<>();
+//        for(Map.Entry<Character, Character> entry : hashmap.entrySet()){
+//            Character employee = entry.getKey();
+//            Character employer = entry.getValue();
+//            Node employ = new Node(employee);
+//            Node employr = new Node(employer);
+//            if(!set.contains(employ)){
+//                set.add(employ);
+//            }
+//            if(!set.contains(employr)){
+//                set.add(employr);
+//            }
+//            Node parent =
+//        }
+    }
