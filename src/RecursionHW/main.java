@@ -54,6 +54,7 @@ public class main {
 //        client.longestPossiblePath(question, 0, 0, 5, 5);
 //        int[] array = {2, 4, 6, 8};
 //        client.getAllCombinations(array, 8, 4);
-        client.cryptarythmicPuzzle("send", "more", "money");
+//        client.cryptarythmicPuzzle("send", "more", "money");
+        client.patternMatching("geeksforgeeksrahulsurekarahulgeeks");
     }
 }

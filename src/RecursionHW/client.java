@@ -602,7 +602,34 @@ public class client {
     }
 
 //    ============================================================================================================================
+//  Match a pattern string without using regular expression
+    public static void patternMatching(String str){
+        HashSet<String> set = new HashSet<>();
+        for(int i = 0; i < str.length(); i++){
+            char ch = str.charAt(i);
+            int j = i+1;
+            while(j < str.length()){
+                if(str.charAt(j) == ch){
+                    int k = i;
+                    StringBuilder sb = new StringBuilder();
+                    while(j < str.length() && str.charAt(j) == str.charAt(k)){
+                        sb.append(str.charAt(j));
+                        String st = sb.toString();
+                        if(st.length() > 4 && !set.contains(st)){
+                            System.out.println(st);
+                            set.add(st);
+                        }
+                        j++;
+                        k++;
+                    }
+                }
+                j++;
+            }
+        }
+    }
 
+//    ===========================================================================================================================
+//    Find maximum integer possible by doing atmost k swaps.....................
 
 }
 
