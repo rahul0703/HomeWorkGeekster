@@ -631,5 +631,52 @@ public class client {
 //    ===========================================================================================================================
 //    Find maximum integer possible by doing atmost k swaps.....................
 
+
+//    Palindrome partitioning
+    public static void PalindromePartitioning(String str){
+        ArrayList<String> ans = new ArrayList<>();
+        palindromePart(str, ans);
+        for(String i : ansFinalCut){
+            System.out.print(i + " ");
+        }
+    }
+    private static ArrayList<String> ansFinalCut = new ArrayList<>();
+    private static int min = Integer.MAX_VALUE;
+    private static void palindromePart(String str, ArrayList<String> ans){
+        if(str.length() == 0){
+            if(ans.size() < min){
+                ansFinalCut.clear();
+                min = ans.size();
+                for(String i : ans){
+                    ansFinalCut.add(i);
+                }
+            }
+            return;
+        }
+
+        for(int i = 1; i <= str.length(); i++){
+            String cut = str.substring(0, i);
+            if(isPalindromecut(cut)){
+//                System.out.println(cut);
+                ans.add(cut);
+                String ros = str.substring(i);
+                palindromePart(ros, ans);
+                ans.remove(ans.size()-1);
+            }
+        }
+        return;
+    }
+
+    private static boolean isPalindromecut(String str){
+        if(str.length() == 1){
+            return true;
+        }
+        for(int i = 0; i < str.length(); i++){
+            if(str.charAt(i) != str.charAt(str.length()-1-i)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
 

@@ -55,6 +55,7 @@ public class main {
 //        int[] array = {2, 4, 6, 8};
 //        client.getAllCombinations(array, 8, 4);
 //        client.cryptarythmicPuzzle("send", "more", "money");
-        client.patternMatching("geeksforgeeksrahulsurekarahulgeeks");
+//        client.patternMatching("geeksforgeeksrahulsurekarahulgeeks");
+        client.PalindromePartitioning("ababbbabbababa");
     }
 }
