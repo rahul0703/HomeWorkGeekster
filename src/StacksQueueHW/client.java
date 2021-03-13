@@ -304,5 +304,17 @@ public class client {
     }
 
 //    ==============================================Question 4last===================================================
-//
+//Tower hanoi
+    public static void TowerOfHanoi(int k){
+        tower("A", "B", "C", k);
+    }
+
+    private static void tower(String source,  String des, String helper, int k){
+        if(k == 0){
+            return;
+        }
+        tower(source, helper, des, k-1);
+        System.out.println("Move disk number " + k + "from " + source + " to " + des);
+        tower(helper, des, source, k-1);
+    }
 }
