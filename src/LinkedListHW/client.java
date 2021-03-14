@@ -4,6 +4,7 @@ import javax.naming.NameNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 
 public class client {
 
@@ -250,24 +251,33 @@ public class client {
         }
 
         int ans = 0;
-        subseq(str,"");
-        ans = answer;
-        return ans;
+        ArrayList<String> answer = subseq(str,"");
+//        System.out.println(value);
+        return answer.size();
     }
-    public static int answer = 0;
-    public static void subseq(String ques, String ans){
+//    public static int value = 0;
+    public static ArrayList<String> subseq(String ques, String ans){
         if(ans.length() == 5 && isPalindrome(ans) == true){
-            answer++;
-            return;
+            ArrayList<String> ansswers = new ArrayList<>();
+            ansswers.add(ans);
+//            value++;
+            return ansswers;
         }
         if(ques.length() == 0){
-            return;
+            return new ArrayList<>();
         }
         String sb = ques.substring(0, 1);
         String rq = ques.substring(1);
-        subseq(rq, ans + sb);
-        subseq(rq, ans);
-        return;
+        ArrayList<String> answer1 = subseq(rq, ans + sb);
+        ArrayList<String> answer2 = subseq(rq, ans);
+        ArrayList<String> answerFinal = new ArrayList<>();
+        for(String s : answer1){
+            answerFinal.add(s);
+        }
+        for(String s1 : answer2){
+            answerFinal.add(s1);
+        }
+        return answerFinal;
     }
 
     public static boolean isPalindrome(String str){
@@ -281,4 +291,7 @@ public class client {
         }
         return true;
     }
+
+//    ===============================================================================================================================
+
 }

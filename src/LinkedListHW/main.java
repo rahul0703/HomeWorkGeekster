@@ -11,7 +11,7 @@ public class main {
 
 
 //        Node head = client.merger2SortedLinkedListNaive(head1, head2);
-        Node head = client.merger2SortedLinkedListMostEff(head1, head2);
+//        Node head = client.merger2SortedLinkedListMostEff(head1, head2);
 //        client.display(head);
 
 
@@ -23,18 +23,18 @@ public class main {
 //        Node head2 = client.reverseInKGroups(head, 3);
 //        client.display(head2);
 
-        Node node = head;
-        while(node.next != null){
-            node = node.next;
-        }
-        node.next = head.next.next;
-
-        Node headFinal = client.DetectAndRemoveLoop(head);
+//        Node node = head;
+//        while(node.next != null){
+//            node = node.next;
+//        }
+//        node.next = head.next.next;
+//
+//        Node headFinal = client.DetectAndRemoveLoop(head);
 //        boolean ans =  client.detectLoop(head);
 //        System.out.println(ans);
 //        Node startOfLoop = client.startOfLoop(head);
 //        System.out.println(startOfLoop.data);
-        int ans = client.subsequence("aabccba");
+        int ans = client.subsequence("zzzzzzz");
         System.out.println(ans);
     }
 }
