@@ -241,4 +241,44 @@ public class client {
         return head;
 //        ....
     }
+
+
+//    find subsequence of length5
+    public static int subsequence(String str){
+        if(str.length() < 5){
+            return 0;
+        }
+
+        int ans = 0;
+        subseq(str,"");
+        ans = answer;
+        return ans;
+    }
+    public static int answer = 0;
+    public static void subseq(String ques, String ans){
+        if(ans.length() == 5 && isPalindrome(ans) == true){
+            answer++;
+            return;
+        }
+        if(ques.length() == 0){
+            return;
+        }
+        String sb = ques.substring(0, 1);
+        String rq = ques.substring(1);
+        subseq(rq, ans + sb);
+        subseq(rq, ans);
+        return;
+    }
+
+    public static boolean isPalindrome(String str){
+        if(str.length() == 0){
+            return true;
+        }
+        for(int i = 0; i < str.length(); i++){
+            if(str.charAt(i) != str.charAt(str.length() -1 -i)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
