@@ -243,55 +243,77 @@ public class client {
 //        ....
     }
 
-
-//    find subsequence of length5
-    public static int subsequence(String str){
-        if(str.length() < 5){
-            return 0;
+//    ===============================================================================================================================
+    public static Node IntersectionOfLinkedList(Node node1, Node node2){
+        HashSet<Node> set = new HashSet<>();
+        Node shor = null;
+        Node lon = null;
+        int size1 = 0;
+        Node start1 = node1;
+        while(start1 != null){
+            size1++;
+            start1 = start1.next;
+        }
+        int size2 = 0;
+        Node start2 = node2;
+        while(start2 != null){
+            start2 = start2.next;
+            size2++;
+        }
+        if(size1 < size2){
+            shor = node1;
+            lon = node2;
+        }else{
+            shor = node2;
+            lon = node1;
         }
 
-        int ans = 0;
-        ArrayList<String> answer = subseq(str,"");
-//        System.out.println(value);
-        return answer.size();
-    }
-//    public static int value = 0;
-    public static ArrayList<String> subseq(String ques, String ans){
-        if(ans.length() == 5 && isPalindrome(ans) == true){
-            ArrayList<String> ansswers = new ArrayList<>();
-            ansswers.add(ans);
-//            value++;
-            return ansswers;
+        while(shor != null){
+            set.add(shor);
+            shor = shor.next;
         }
-        if(ques.length() == 0){
-            return new ArrayList<>();
-        }
-        String sb = ques.substring(0, 1);
-        String rq = ques.substring(1);
-        ArrayList<String> answer1 = subseq(rq, ans + sb);
-        ArrayList<String> answer2 = subseq(rq, ans);
-        ArrayList<String> answerFinal = new ArrayList<>();
-        for(String s : answer1){
-            answerFinal.add(s);
-        }
-        for(String s1 : answer2){
-            answerFinal.add(s1);
-        }
-        return answerFinal;
-    }
-
-    public static boolean isPalindrome(String str){
-        if(str.length() == 0){
-            return true;
-        }
-        for(int i = 0; i < str.length(); i++){
-            if(str.charAt(i) != str.charAt(str.length() -1 -i)){
-                return false;
+        while(lon != null){
+            if(set.contains(lon)){
+                return lon;
             }
+            lon = lon.next;
         }
-        return true;
+        return null;
     }
 
 //    ===============================================================================================================================
-
+    public static int intersectionOf2LinkedListEfficient(Node head1, Node head2){
+         if(head1 == head2){
+             return head1.data;
+         }
+         int count1 = 0;
+         int count2 = 0;
+         Node node1 = head1;
+         Node node2 = head2;
+         while(node1 != null){
+             node1 = node1.next;
+             count1++;
+         }
+         while(node2 != null){
+             node2 = node2.next;
+             count2++;
+         }
+         int diff = Math.abs(count1 - count2);
+         if(count1 > count2){
+             while(diff > 0){
+                 head1 = head1.next;
+                 diff--;
+             }
+         }else if(count2 > count1){
+             while(diff > 0){
+                 head2 = head2.next;
+                 diff--;
+             }
+         }
+         while(head1 != head2){
+             head1 = head1.next;
+             head2 = head2.next;
+         }
+         return head1.data;
+    }
 }

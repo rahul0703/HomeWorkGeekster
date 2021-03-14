@@ -34,7 +34,6 @@ public class main {
 //        System.out.println(ans);
 //        Node startOfLoop = client.startOfLoop(head);
 //        System.out.println(startOfLoop.data);
-        int ans = client.subsequence("zzzzzzz");
-        System.out.println(ans);
+
     }
 }
