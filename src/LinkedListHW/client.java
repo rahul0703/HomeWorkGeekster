@@ -239,5 +239,6 @@ public class client {
         pointer2.next = null;
         display(head);
         return head;
+//        ....
     }
 }
