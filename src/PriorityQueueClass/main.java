@@ -52,5 +52,17 @@ public class main {
 //        }
 //        heap h2 = new heap(array);
 //        h2.display();
+        medianHeap heap = new medianHeap();
+        heap.add(10);
+        heap.add(12);
+        heap.add(20);
+        heap.add(30);
+        System.out.println(heap.getMedian());
+        heap.add(9);
+        heap.add(1);
+        System.out.println(heap.getMedian());
+        heap.remove();
+        heap.remove();
+        System.out.println(heap.getMedian());
     }
 }
