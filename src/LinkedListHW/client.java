@@ -409,10 +409,138 @@ public class client {
     }
 
 //    Rotate LinkedList block wise
-//    public static Node RotateLinkedListBlockWise(Node node, int k){
-//
-//    }
+    public static Node RotateLinkedListBlockWise(Node node, int k){
+        if(node == null){
+            return null;
+        }
+        Node head = node;
+        int l = k-2;
+        while(node != null && l > 0){
+            node = node.next;
+            l--;
+        }
+        if(node == null || node.next == null){
+            return head;
+        }
+        Node next = node.next.next;
+        Node headFinal = node.next;
+        Node head2 = RotateLinkedListBlockWise(next, k);
+        node.next = head2;
+        headFinal.next = head;
+        return headFinal;
+    }
 
 //
+    public static Node subtractNumberAsLinkedList(Node node1, Node node2){
+        int x1 = 0;
+        int x2 = 0;
+        while(node1 != null){
+            x1 = x1 *10 + node1.data;
+            node1 = node1.next;
+        }
+        while (node2 != null){
+            x2 = x2 * 10 + node2.data;
+            node2 = node2.next;
+        }
+        int ans = Math.abs(x1 - x2);
+        Node head = new Node(ans % 10);
+        Node node = head;
+        ans = ans/10;
+        while(ans > 0){
+            node.next = new Node(ans % 10);
+            ans = ans/10;
+            node = node.next;
+        }
+        Node headFinal = reverse(head);
+        return headFinal;
+    }
+
+
+//subtract linkedList
+    public static ArrayList<Node> getGreaterAndSmallerLinkedList(Node node1, Node node2){
+        int size1 = size(node1);
+        int size2 = size(node2);
+        ArrayList<Node> ans = new ArrayList<>();
+        if(size1 > size2){
+            ans.add(node1);
+            ans.add(node2);
+        }else if(size2 > size1){
+            ans.add(node2);
+            ans.add(node1);
+        }else{
+            Node node11 = node1;
+            Node node22 = node2;
+            while(node1.data == node2.data){
+                node1 = node1.next;
+                node2 = node2.next;
+            }
+            if(node1.data >= node2.data){
+                ans.add(node11);
+                ans.add(node22);
+            }else{
+                ans.add(node22);
+                ans.add(node11);
+            }
+        }
+        return ans;
+    }
+
+    public static int size(Node node){
+        int siz = 0;
+        while(node != null){
+            siz++;
+            node = node.next;
+        }
+        return siz;
+    }
+
+    public static Node SubtractLinkedList(Node node1, Node node2){
+        ArrayList<Node> a = getGreaterAndSmallerLinkedList(node1, node2);
+        node1 = a.get(0);
+        node2 = a.get(1);
+        node1 = reverse(node1);
+        node2 = reverse(node2);
+        ArrayList<Integer> list = new ArrayList<>();
+        while(node1 != null && node2 != null){
+            int x1 = node1.data;
+            int x2 = node2.data;
+            int ans = 0;
+            if(x1 >= x2){
+                ans = x1 - x2;
+            }else{
+                ans = x1 + 10 - x2;
+                node1.next.data = node1.next.data -1;
+            }
+            list.add(ans);
+            node1 = node1.next;
+            node2 = node2.next;
+        }
+        while(node1 != null){
+            list.add(node1.data);
+            node1 = node1.next;
+        }
+        while(node2 != null){
+            list.add(node2.data);
+            node2 = node2.next;
+        }
+        Collections.reverse(list);
+        while(list.size() > 0 && list.get(0) == 0){
+            list.remove(0);
+        }
+        if(list.size() == 0){
+            list.add(0);
+        }
+        int[] array = new int[list.size()];
+        int j = 0;
+        for(int i : list){
+            array[j] = i;
+            j++;
+        }
+        Node head = makeLinkedList(array);
+        return head;
+    }
+
+
+
 
 }

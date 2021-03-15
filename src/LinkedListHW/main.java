@@ -2,8 +2,8 @@ package LinkedListHW;
 
 public class main {
     public static void main(String[] args){
-        int[] array = {12, 13, 14};
-        int[] array2 = {5, 7, 9, 10, 11, 15, 19};
+        int[] array = {4, 6, 1, 0, 2, 3};
+        int[] array2 = {5, 7, 9, 1, 8, 5, 9, 1, 2, 3, 4};
         int[] array3 = {1, 2, 4, 5, 6, 8, 9};
         Node head2 = client.makeLinkedList(array2);
         Node head1 = client.makeLinkedList(array);
@@ -11,8 +11,8 @@ public class main {
 //        client.displayDoublyLinkedList(doublyHead);
 //        int answer = client.countTriplets(doublyHead, 15);
 //        System.out.println(answer);
-        Node head = client.merger2SortedLinkedListMostEff(head1, head2);
-        client.display(head);
+//        Node head = client.merger2SortedLinkedListMostEff(head1, head2);
+//        client.display(head);
 //        Node node = head;
 //        while(node.next != null){
 //            node = node.next;
@@ -50,10 +50,13 @@ public class main {
 //        System.out.println(startOfLoop.data);
 
 //
-        Node answer = client.RotateLinkedListBlockWise(head, 3);
-        System.out.println(answer.data);
+//        Node answer = client.RotateLinkedListBlockWise(head, 3);
+//        System.out.println(answer.data);
+//        client.display(answer);
+        Node answer = client.SubtractLinkedList(head1, head2);
         client.display(answer);
-
+//        Node answer = client.subLinkedList(head2, head1);
+//        client.display(answer);
 
     }
 }

@@ -33,6 +33,7 @@ public class util {
 //    ===============================================Question 1===========================================================================
 //    (imp) Clone a binary Tree with random pointers and return head.................................
 //    solution: a given tree has 3 pointers left, right, random. we need to clone the tree with random pointer means map[tree].random = mp[tree.random];
+
     public static NodeClone GetHeadOfCloneTree(NodeClone tree){
         if(tree == null){
             return null;
@@ -729,5 +730,8 @@ public class util {
         }
         return root;
     }
+
+
+//
 
 }
