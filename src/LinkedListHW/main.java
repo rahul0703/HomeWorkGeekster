@@ -7,10 +7,19 @@ public class main {
         int[] array3 = {1, 2, 4, 5, 6, 8, 9};
         Node head2 = client.makeLinkedList(array2);
         Node head1 = client.makeLinkedList(array);
-        DoublyLinkedListNode doublyHead = client.makeDoublyLinkedList(array3);
-        client.displayDoublyLinkedList(doublyHead);
-        int answer = client.countTriplets(doublyHead, 15);
-        System.out.println(answer);
+//        DoublyLinkedListNode doublyHead = client.makeDoublyLinkedList(array3);
+//        client.displayDoublyLinkedList(doublyHead);
+//        int answer = client.countTriplets(doublyHead, 15);
+//        System.out.println(answer);
+        Node head = client.merger2SortedLinkedListMostEff(head1, head2);
+        client.display(head);
+        Node node = head;
+        while(node.next != null){
+            node = node.next;
+        }
+        node.next = head;
+        int ans = client.JosephCircle(head, 4);
+        System.out.println(ans);
 
 
 

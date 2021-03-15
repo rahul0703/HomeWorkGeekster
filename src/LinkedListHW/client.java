@@ -398,4 +398,17 @@ public class client {
         return;
     }
 
+    public static int JosephCircle(Node node, int m){
+        while(node.next != node){
+            int j = m-1;
+            while(j > 0){
+                node = node.next;
+                j--;
+            }
+            Node nodeNext = node.next.next;
+            node.next = nodeNext;
+        }
+        return node.data;
+    }
+
 }
