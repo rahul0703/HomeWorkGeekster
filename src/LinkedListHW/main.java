@@ -13,13 +13,13 @@ public class main {
 //        System.out.println(answer);
         Node head = client.merger2SortedLinkedListMostEff(head1, head2);
         client.display(head);
-        Node node = head;
-        while(node.next != null){
-            node = node.next;
-        }
-        node.next = head;
-        int ans = client.JosephCircle(head, 4);
-        System.out.println(ans);
+//        Node node = head;
+//        while(node.next != null){
+//            node = node.next;
+//        }
+//        node.next = head;
+//        int ans = client.JosephCircle(head, 4);
+//        System.out.println(ans);
 
 
 
@@ -49,6 +49,10 @@ public class main {
 //        Node startOfLoop = client.startOfLoop(head);
 //        System.out.println(startOfLoop.data);
 
+//
+        Node answer = client.RotateLinkedListBlockWise(head, 3);
+        System.out.println(answer.data);
+        client.display(answer);
 
 
     }
