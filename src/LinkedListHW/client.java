@@ -316,4 +316,86 @@ public class client {
          }
          return head1.data;
     }
+
+//remove duplicates ===========================================================================================================
+    public static Node removeDuplicates(Node head)
+    {
+        // Your code here
+        HashSet<Integer> set = new HashSet<>();
+        Node node = head;
+        set.add(node.data);
+        while(node.next != null){
+            int data = node.next.data;
+            if(set.contains(data)){
+                node.next = node.next.next;
+            }else{
+                set.add(data);
+                node = node.next;
+            }
+        }
+        return head;
+    }
+
+//    =================================================================================================================
+//Count triplets in sorted doubly linkedlist
+    public static int countTriplets(DoublyLinkedListNode node, int x){
+        int MaxSum = 0;
+        int size = 0;
+        DoublyLinkedListNode node1 = node;
+        while(node1.next != null){
+            size++;
+            node1 = node1.next;
+        }
+        DoublyLinkedListNode nodeLast = node1;
+//        node1 = node1.prev;
+        DoublyLinkedListNode stopNode = node1.prev.prev;
+        while(node != stopNode.next){
+            DoublyLinkedListNode pointer1 = node.next;
+            node1 = nodeLast;
+            while(pointer1 != null && node1 != null && pointer1 != node1){
+                if(node.data + pointer1.data + node1.data == x){
+                    MaxSum++;
+                    pointer1 = pointer1.next;
+                }else if(node.data + pointer1.data + node1.data < x){
+                    pointer1 = pointer1.next;
+                }else{
+                    node1 = node1.prev;
+                }
+            }
+            node = node.next;
+        }
+        return MaxSum;
+    }
+
+
+    public static DoublyLinkedListNode makeDoublyLinkedList(int[] array){
+        if(array.length == 0){
+            return null;
+        }
+        if(array.length == 1){
+            return new DoublyLinkedListNode(array[0]);
+        }
+        DoublyLinkedListNode head = new DoublyLinkedListNode(array[0]);
+        DoublyLinkedListNode pointer = head;
+        for(int i = 1; i < array.length; i++){
+            DoublyLinkedListNode newPointer = new DoublyLinkedListNode(array[i]);
+            pointer.next = newPointer;
+            newPointer.prev = pointer;
+            pointer = newPointer;
+        }
+        return head;
+    }
+
+    public static void displayDoublyLinkedList(DoublyLinkedListNode node){
+        StringBuilder sb = new StringBuilder();
+        sb.append("null");
+        while(node != null){
+            sb.append("<=" + node.data + "=>");
+            node = node.next;
+        }
+        sb.append("null");
+        System.out.println(sb.toString());
+        return;
+    }
+
 }
