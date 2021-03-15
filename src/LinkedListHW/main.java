@@ -3,10 +3,10 @@ package LinkedListHW;
 public class main {
     public static void main(String[] args){
         int[] array = {5, 0, 3, 7, 3, 6, 2};
-        int[] array2 = {5, 7, 9, 1, 8, 5, 9, 1, 2, 3, 4};
-        int[] array3 = {6, 3, 5, 1, 5};
-        Node head2 = client.makeLinkedList(array3);
-        Node head1 = client.makeLinkedList(array);
+        int[] array2 = {1, 2, 3, 4, 5, 6,7, 8, 9};
+        int[] array3 = {1, 2, 3, 4,5,6, 7, 8, 9, 10};
+        Node head2 = client.makeLinkedList(array2);
+        Node head1 = client.makeLinkedList(array3);
 //        DoublyLinkedListNode doublyHead = client.makeDoublyLinkedList(array3);
 //        client.displayDoublyLinkedList(doublyHead);
 //        int answer = client.countTriplets(doublyHead, 15);
@@ -53,10 +53,10 @@ public class main {
 //        Node answer = client.RotateLinkedListBlockWise(head, 3);
 //        System.out.println(answer.data);
 //        client.display(answer);
-        Node answer = client.SubtractLinkedList(head1, head2);
-        client.display(answer);
+//        Node answer = client.zigzagFashion(head2);
+//        client.display(answer);
 //        Node answer = client.subLinkedList(head2, head1);
 //        client.display(answer);
-
+        System.out.println(client.GenerateRandomNumber(head1));
     }
 }

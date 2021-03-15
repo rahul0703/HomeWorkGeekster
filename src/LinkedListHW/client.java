@@ -486,10 +486,11 @@ public class client {
     }
 
     public static int size(Node node){
+        Node node1 = node;
         int siz = 0;
-        while(node != null){
+        while(node1 != null){
             siz++;
-            node = node.next;
+            node1 = node1.next;
         }
         return siz;
     }
@@ -556,5 +557,130 @@ public class client {
         return head1;
     }
 
+//Sorted abs sorted linkedlist
+    public static Node absSorted(Node node1){
+        if(node1 == null){
+            return null;
+        }else if(node1.next == null){
+            return node1;
+        }
+        Node node = node1;
+        int size = 1;
+        int countNegative = 0;
+        while(node.next != null){
+            node = node.next;
+            if(node.data < 0){
+                countNegative++;
+            }
+            size++;
+        }
+        if(node1.data < 0 && countNegative == size -1){
+            return reverse(node1);
+        }
+        if(size == 2){
+            if(node1.data < node1.next.data){
+                return node1;
+            }else{
+                return reverse(node1);
+            }
+        }
+        Node last = node;
+        Node head = node1;
+        Node pointer = head.next;
+        Node prev = head;
+        int k = size-1;
+        while(k > 0){
+            if(pointer.data < 0){
+                prev.next = pointer.next;
+                last.next = pointer;
+                last = last.next;
+                last.next = null;
+                pointer = prev.next;
+            }else {
+                pointer = pointer.next;
+                prev = prev.next;
+            }
+            k--;
+        }
+        if(node1.data < 0){
+            Node remove = node1;
+            node1 = node1.next;
+            remove.next = prev.next;
+            prev.next = remove;
+        }
+        Node xyz = prev.next;
+        prev.next = null;
+        Node headFinal = reverse(node1);
+    //        Node headReverse = reverse(xyz);
+        node1.next = xyz;
+        return reverse(headFinal);
+    }
+//imporoved ABS sorted important.....................................................................................
+    public static Node ImprovedABSSorted(Node node){
+        if(node == null || node.next == null){
+            return node;
+        }
+        Node prev = node;
+        Node current = prev.next;
 
+        while(current != null){
+            if(current.data < 0){
+                prev.next = current.next;
+                current.next = node;
+                node = current;
+                current = prev;
+            }else{
+                prev = current;
+            }
+            current = current.next;
+        }
+        return node;
+    }
+
+//    zigzag fashion
+    public static Node zigzagFashion(Node node){
+        if(node == null || node.next == null){
+            return node;
+        }
+        Node prev = node;
+        Node current = node.next;
+        boolean flag = true;
+        if(current.data < prev.data){
+            int temp1 = current.data;
+            current.data = prev.data;
+            prev.data = temp1;
+        }
+        current = current.next;
+        prev = prev.next;
+        while(current != null){
+            if(current.data >= prev.data && flag == true){
+                int temp = current.data;
+                current.data = prev.data;
+                prev.data = temp;
+            }else if(current.data < prev.data && flag == false){
+                int temp = current.data;
+                current.data = prev.data;
+                prev.data = temp;
+            }
+            flag = !flag;
+            current = current.next;
+            prev = prev.next;
+        }
+
+        return node;
+    }
+
+//    generate random number from linkedlist
+    public static int GenerateRandomNumber(Node node){
+        int res = -1;
+        for(int i = 1; node != null ; i++){
+            if(Math.floor(Math.random() * i) + 1 == node.data){
+                res = node.data;
+            }
+            node = node.next;
+        }
+        return res;
+    }
+
+//
 }

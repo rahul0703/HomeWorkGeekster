@@ -119,7 +119,6 @@ public class util {
         return ans;
     }
 
-//sort linkedList which is already sorted on absolute values
 
 
 }
