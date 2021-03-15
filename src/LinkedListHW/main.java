@@ -2,10 +2,10 @@ package LinkedListHW;
 
 public class main {
     public static void main(String[] args){
-        int[] array = {4, 6, 1, 0, 2, 3};
+        int[] array = {5, 0, 3, 7, 3, 6, 2};
         int[] array2 = {5, 7, 9, 1, 8, 5, 9, 1, 2, 3, 4};
-        int[] array3 = {1, 2, 4, 5, 6, 8, 9};
-        Node head2 = client.makeLinkedList(array2);
+        int[] array3 = {6, 3, 5, 1, 5};
+        Node head2 = client.makeLinkedList(array3);
         Node head1 = client.makeLinkedList(array);
 //        DoublyLinkedListNode doublyHead = client.makeDoublyLinkedList(array3);
 //        client.displayDoublyLinkedList(doublyHead);

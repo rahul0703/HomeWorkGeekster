@@ -470,11 +470,11 @@ public class client {
         }else{
             Node node11 = node1;
             Node node22 = node2;
-            while(node1.data == node2.data){
+            while(node1 != null && node1.data == node2.data){
                 node1 = node1.next;
                 node2 = node2.next;
             }
-            if(node1.data >= node2.data){
+            if(node1 != null && node1.data >= node2.data){
                 ans.add(node11);
                 ans.add(node22);
             }else{
@@ -509,7 +509,12 @@ public class client {
                 ans = x1 - x2;
             }else{
                 ans = x1 + 10 - x2;
-                node1.next.data = node1.next.data -1;
+                Node pointer = node1.next;
+                while(pointer.data == 0){
+                    pointer.data = 9;
+                    pointer = pointer.next;
+                }
+                pointer.data = pointer.data-1;
             }
             list.add(ans);
             node1 = node1.next;
@@ -540,7 +545,16 @@ public class client {
         return head;
     }
 
-
+    public static Node mergerKSortedLinkedListEasy(Node[] array){
+        Node head1 = array[0];
+        int i = 1;
+        while(i < array.length){
+            Node head = merger2SortedLinkedListMostEff(head1, array[i]);
+            head1 = head;
+            i++;
+        }
+        return head1;
+    }
 
 
 }
