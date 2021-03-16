@@ -65,6 +65,10 @@ public class main {
 //        Node root1 = util.ancestorMatrixToTree(mat);
 //        util.printTree(root1);
 
-        System.out.println(util.pathWithGivenSum(root, 10));
+//        System.out.println(util.pathWithGivenSum(root, 10));
+//        util.LeftClone(root);
+//        int ans = util.verticalSum(root);
+//        System.out.println(ans);
+        util.deepestLeftLeafNode(root);
     }
 }

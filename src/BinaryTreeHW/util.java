@@ -793,6 +793,84 @@ public class util {
         return;
     }
 
-//    mirror image yes or no
+//    left Clone
+    public static void LeftClone(Node node){
+        printTree(node);
+        System.out.println();
+        if(node == null){
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        while(!queue.isEmpty()){
+            Node pollNode = queue.poll();
+            if(pollNode.left != null){
+                queue.add(pollNode.left);
+            }
+            if(pollNode.right != null){
+                queue.add(pollNode.right);
+            }
+            Node leftNode = pollNode.left;
+            pollNode.left = new Node(pollNode.data);
+            pollNode.left.left = leftNode;
+        }
+        printTree(node);
+        return;
+    }
+
+//    vertical sum
+    public static int verticalSum(Node node){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        InorderVerticalSum(node, map, 0);
+        int maxValue = Integer.MIN_VALUE;
+        for(Map.Entry<Integer, Integer> set : map.entrySet()){
+            int x = set.getValue();
+            maxValue = Math.max(maxValue, x);
+        }
+        return maxValue;
+    }
+
+    public static void InorderVerticalSum(Node node, HashMap<Integer, Integer> map, int current){
+        if(node == null){
+            return;
+        }
+        if(map.containsKey(current)){
+            map.put(current, map.get(current) + node.data);
+        }else{
+            map.put(current, node.data);
+        }
+
+        InorderVerticalSum(node.left, map, current-1);
+        InorderVerticalSum(node.right, map, current+1);
+        return;
+    }
+
+
+//    ===================================================================================================================================================================
+    public static void deepestLeftLeafNode(Node node){
+        if(node == null || node.left == null){
+            System.out.println("No left Node");
+            return;
+        }
+        Node ans = InorderDeepestLeftLeaf(node, null, 0);
+        System.out.println(ans.data);
+        return;
+    }
+    private static int depth = 0;
+
+    private static Node InorderDeepestLeftLeaf(Node node, Node sum, int currentDepth){
+        if(node == null){
+            return sum;
+        }
+        if(node.left != null && currentDepth > depth){
+            sum = node.left;
+            depth++;
+        }
+        sum = InorderDeepestLeftLeaf(node.left, sum, currentDepth+1);
+        sum = InorderDeepestLeftLeaf(node.right, sum, currentDepth+1);
+        return sum;
+    }
+
+//    ==================================================================================================================================================================
 
 }
