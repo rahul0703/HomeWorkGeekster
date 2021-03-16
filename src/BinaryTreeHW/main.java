@@ -60,9 +60,11 @@ public class main {
 //        int[] parent = {1, 5, 5, 2, 2, -1, 3};
 //        util.parentArrayToBinaryTree(parent);
 //        System.out.print(util.lowestCommonAncestor(root, root.left.right,root.left.left ));
-        int mat[][] = {
-                { 0, 0, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1, 0 }, { 0, 0, 0, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1, 0 }};
-        Node root1 = util.ancestorMatrixToTree(mat);
-        util.printTree(root1);
+//        int mat[][] = {
+//                { 0, 0, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1, 0 }, { 0, 0, 0, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1, 0 }};
+//        Node root1 = util.ancestorMatrixToTree(mat);
+//        util.printTree(root1);
+
+        System.out.println(util.pathWithGivenSum(root, 10));
     }
 }

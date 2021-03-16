@@ -732,6 +732,31 @@ public class util {
     }
 
 
-//
+//Root to leaf path with given sum
+    public static boolean pathWithGivenSum(Node root, int k){
+        boolean ans = pathWithGivenSumHelper(root, k, root.data);
+        return ans;
+    }
+
+    public static boolean pathWithGivenSumHelper(Node node, int k, int sum){
+        if(sum == k){
+            return true;
+        }
+        if(node.left != null){
+            boolean ans = pathWithGivenSumHelper(node.left, k, sum + node.left.data);
+            if(ans == true){
+                return true;
+            }
+        }
+        if(node.right != null){
+            boolean ans2 = pathWithGivenSumHelper(node.right, k, sum + node.right.data);
+            if(ans2 == true){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 }
