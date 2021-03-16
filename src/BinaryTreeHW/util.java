@@ -705,12 +705,12 @@ public class util {
         });
         Node root = null;
         Node[] node = new Node[array.length];
-        for(Map.Entry<Integer, Integer> set : IndexCount.entrySet()) {
+        for(Map.Entry<Integer, Integer> set : list) {
             int key = set.getKey();
             int val = set.getValue();
             node[key] = new Node(key);
         }
-        for(Map.Entry<Integer, Integer> set : IndexCount.entrySet()){
+        for(Map.Entry<Integer, Integer> set : list){
             int key = set.getKey();
             int val = set.getValue();
             node[key] = new Node(key);
@@ -758,5 +758,41 @@ public class util {
     }
 
 
+//    Connect node at adjacent level
+    public static void levelNextOrder(LevelNode node){
+        levelOrderTraversal(node);
+        return;
+    }
+
+    private static void levelOrderTraversal(LevelNode node){
+        Queue<LevelNode> queue = new LinkedList<>();
+        queue.add(node);
+        queue.add(null);
+        while(!queue.isEmpty()){
+            LevelNode popele = queue.poll();
+            if(popele == null){
+                if(!queue.isEmpty() && queue.peek() == null){
+                    break;
+                }else if(queue.isEmpty()){
+                    break;
+                }else{
+                    queue.add(null);
+                }
+            }else{
+                if(!queue.isEmpty() && queue.peek() != null){
+                    popele.next = queue.peek();
+                }
+                if(popele.left != null){
+                    queue.add(popele.left);
+                }
+                if(popele.right != null){
+                    queue.add(popele.right);
+                }
+            }
+        }
+        return;
+    }
+
+//    mirror image yes or no
 
 }
