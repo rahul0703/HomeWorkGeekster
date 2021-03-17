@@ -16,6 +16,7 @@ public class main {
         root.right.right.right = new Node(11);
         root.left.right.right = new Node(12);
         root.left.left.left.left = new Node(2);
+        root.left.right.right .left= new Node(13);
 //        util.MorrisInorder(root);
 //        util.postOrderIterative2StackMethod(root);
 //        util.MorrisPreorder(root);
@@ -69,6 +70,10 @@ public class main {
 //        util.LeftClone(root);
 //        int ans = util.verticalSum(root);
 //        System.out.println(ans);
-        util.deepestLeftLeafNode(root);
+//        util.deepestLeftLeafNode(root);
+//        util.reverseAlternateLevel(root);
+//        util.printTree(root);
+//        util.TiltTree(root);
+        System.out.println(util.heightOfTreeByPrentArray(new int[]{-1, 0, 0, 1, 1, 3, 5}));
     }
 }

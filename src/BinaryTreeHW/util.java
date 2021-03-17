@@ -779,6 +779,7 @@ public class util {
                     queue.add(null);
                 }
             }else{
+                System.out.println(popele.data);
                 if(!queue.isEmpty() && queue.peek() != null){
                     popele.next = queue.peek();
                 }
@@ -872,5 +873,163 @@ public class util {
     }
 
 //    ==================================================================================================================================================================
+//    reverse alternbate node in binary tree
+    public static void reverseAlternateLevel(Node node){
+//        printTree(node);
+//        PrintlevelOrderTraversal(node);
+        System.out.println();
+        if(node == null){
+            return;
+        }
+        boolean flag = true;
+        ArrayList<Node> queue = new ArrayList<>();
+        queue.add(node);
+        queue.add(null);
+        flag = !flag;
+        while(!queue.isEmpty()){
+            Node popEle = queue.get(0);
+            queue.remove(0);
+            if(popEle == null){
+                if(queue.isEmpty()){
+                    break;
+                }
+                if(queue.get(0) == null){
+                    break;
+                }
+                if(flag == true){
+                    for(int i = 0; i < queue.size()/2; i++){
+                        int temp = queue.get(i).data;
+                        queue.get(i).data = queue.get(queue.size()-1-i).data;
+                        queue.get(queue.size()-1-i).data = temp;
+                    }
+                }
+                queue.add(null);
+                flag = !flag;
+            }else{
+                if(popEle.left != null){
+                    queue.add(popEle.left);
+                }
+                if(popEle.right != null){
+                    queue.add(popEle.right);
+                }
+            }
+        }
+//        PrintlevelOrderTraversal(node);
+        return;
+    }
 
+    private static void PrintlevelOrderTraversal(Node node){
+        if(node == null){
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        queue.add(null);
+        while (!queue.isEmpty()){
+            Node pop = queue.poll();
+            if(pop == null){
+                if(queue.isEmpty()){
+                    break;
+                }else if(queue.peek() == null){
+                    break;
+                }else{
+                    System.out.println();
+                    queue.add(null);
+                }
+            }else{
+                if(pop.left != null){
+                    queue.add(pop.left);
+                }
+                if(pop.right != null){
+                    queue.add(pop.right);
+                }
+                System.out.print(pop.data + " ");
+            }
+        }
+    }
+
+//    public static void
+//    tree tilt
+
+    public static void TiltTree(Node node){
+        if(node == null){
+            return;
+        }
+        PrintlevelOrderTraversal(node);
+        System.out.println();
+        System.out.println();
+        int ans = tilt(node);
+        int answer = getSum(node);
+        System.out.println(answer);
+        System.out.println();
+        PrintlevelOrderTraversal(node);
+    }
+
+    private static int tilt(Node node){
+        if(node == null){
+            return 0;
+        }
+
+        int leftTreeSum = tilt(node.left);
+        int rightTreeSum = tilt(node.right);
+        int sum = leftTreeSum+ rightTreeSum+ node.data;
+        node.data = Math.abs(leftTreeSum- rightTreeSum);
+        return sum;
+    }
+
+    private static int getSum(Node node){
+        if(node == null){
+            return 0;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        int sum = 0;
+        while (!queue.isEmpty()){
+            Node pop = queue.poll();
+            sum += pop.data;
+            if(pop.left != null){
+                queue.add(pop.left);
+            }
+            if(pop.right != null){
+                queue.add(pop.right);
+            }
+        }
+        return sum;
+    }
+
+//    find height of tree represented by parent array
+    public static int heightOfTreeByPrentArray(int[] array){
+        int parentData = -1;
+        HashMap<Integer, Node> set = new HashMap<>();
+        for(int i = 0; i < array.length; i++){
+            if(!set.containsKey(i)){
+                set.put(i, new Node(i));
+            }
+            if(array[i] != -1){
+                if(!set.containsKey(array[i])){
+                    set.put(array[i], new Node(array[i]));
+                }
+                Node parent = set.get(array[i]);
+                if(parent.left == null){
+                    parent.left = set.get(i);
+                }else{
+                    parent.right = set.get(i);
+                }
+            }
+            if(array[i] == -1){
+                parentData = i;
+            }
+        }
+        Node parentNode = set.get(parentData);
+        int height = height(parentNode);
+        return height;
+    }
+
+
+    private static int height(Node node){
+        if(node == null){
+            return 0;
+        }
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
 }
