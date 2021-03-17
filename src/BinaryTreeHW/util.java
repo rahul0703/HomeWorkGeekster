@@ -918,7 +918,7 @@ public class util {
         return;
     }
 
-    private static void PrintlevelOrderTraversal(Node node){
+    public static void PrintlevelOrderTraversal(Node node){
         if(node == null){
             return;
         }
@@ -1031,5 +1031,48 @@ public class util {
             return 0;
         }
         return 1 + Math.max(height(node.left), height(node.right));
+    }
+
+
+//    remove node on root to leaf patgh of less than k
+    public static int removeLeafLessThanK(Node node, int k){
+        int ans = removeNode(node, null, 0, k);
+        return ans;
+    }
+
+    private static int removeNode(Node node, Node parent, int current, int k){
+        if(node == null){
+            return current;
+        }
+        int leftHeight = removeNode(node.left, node, current+1, k);
+        int rightHeight = removeNode(node.right, node, current+1, k);
+        if(leftHeight < k){
+            node.left = null;
+        }
+        if(rightHeight < k){
+            node.right = null;
+        }
+        return Math.max(leftHeight, rightHeight);
+    }
+
+//    public static int
+    public static int maxPathSum(Node node){
+        if(node == null){
+            return 0;
+        }
+        pair answer = pathSum(node);
+        return answer.sumSelf;
+    }
+
+    private static pair pathSum(Node node){
+        if(node == null){
+            return new pair(0, 0, 0);
+        }
+        pair leftpair = pathSum(node.left);
+        pair rightpair = pathSum(node.right);
+        int leftFinal = Math.max(Math.max(leftpair.leftSubTreeSum, leftpair.rightSubTreeSum), 0) + node.data;
+        int rightFinal = Math.max(Math.max(rightpair.rightSubTreeSum, rightpair.leftSubTreeSum), 0) + node.data;
+        int sumFinal = Math.max(Math.max(Math.max(leftpair.sumSelf, rightpair.sumSelf), leftFinal + rightFinal - node.data), 0);
+        return new pair(leftFinal, rightFinal, sumFinal);
     }
 }

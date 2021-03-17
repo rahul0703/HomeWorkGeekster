@@ -1,4 +1,6 @@
 package BinaryTreeHW;
+import arraysHW.Util;
+
 import java.lang.reflect.Array;
 import java.util.*;
 public class main {
@@ -8,15 +10,15 @@ public class main {
         root.left = new Node(3);
         root.right = new Node(10);
         root.left.left = new Node(5);
-        root.left.right = new Node(6);
+        root.left.right = new Node(-6);
         root.right.left = new Node(7);
-        root.right.right = new Node(8);
+        root.right.right = new Node(-8);
         root.left.left.left = new Node(4);
         root.left.left.right = new Node(9);
         root.right.right.right = new Node(11);
         root.left.right.right = new Node(12);
         root.left.left.left.left = new Node(2);
-        root.left.right.right .left= new Node(13);
+        root.left.right.right .left= new Node(-13);
 //        util.MorrisInorder(root);
 //        util.postOrderIterative2StackMethod(root);
 //        util.MorrisPreorder(root);
@@ -74,6 +76,8 @@ public class main {
 //        util.reverseAlternateLevel(root);
 //        util.printTree(root);
 //        util.TiltTree(root);
-        System.out.println(util.heightOfTreeByPrentArray(new int[]{-1, 0, 0, 1, 1, 3, 5}));
+//        System.out.println(util.heightOfTreeByPrentArray(new int[]{-1, 0, 0, 1, 1, 3, 5}));
+        System.out.println(util.maxPathSum(root));
+//        util.PrintlevelOrderTraversal(root);
     }
 }
