@@ -77,7 +77,23 @@ public class main {
 //        util.printTree(root);
 //        util.TiltTree(root);
 //        System.out.println(util.heightOfTreeByPrentArray(new int[]{-1, 0, 0, 1, 1, 3, 5}));
-        System.out.println(util.maxPathSum(root));
+//        System.out.println(util.maxPathSum(root));
 //        util.PrintlevelOrderTraversal(root);
+
+//        Node root1 = new Node("+");
+//        root1.left = new Node("3");
+//        root1.right = new Node("*");
+//        root1.right.left = new Node("+");
+//        root1.right.left.left = new Node("5");
+//        root1.right.left.right = new Node("9");
+//        root1.right.right = new Node("2");
+//        int answer = util.expressionTree(root1);
+//        System.out.println(answer);
+//        HashMap<Integer, Integer> map = util.countVerticalNodes(root);
+//        for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+//            System.out.print(entry.getKey() + " => " + entry.getValue() + ", ");
+//        }
+        int answer = util.maxSumPathBw2LeafNodes(root);
+        System.out.println(answer);
     }
 }

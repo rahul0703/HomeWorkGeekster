@@ -17,8 +17,10 @@ class main {
 //            System.out.println(value);
 //        }
 //        gt.removeLeaf();
-        gt.MirrorTree();
-        gt.display();
+//        gt.MirrorTree();
+//        gt.display();
+        int answer = GenricTree.maxPathLength(gt.root);
+        System.out.println(answer);
 
     }
 }

@@ -85,7 +85,7 @@ public class util {
         elements left = getanswer(root.left, x);
         elements right = getanswer(root.right, x);
         elements answer = new elements(root);
-        answer.sum = answer.node.data + left.sum + right.sum;
+        answer.sum = (Integer) answer.node.data + left.sum + right.sum;
         if(answer.sum == x){
             answer.count = left.count + right.count + 1;
         }else{
@@ -270,7 +270,7 @@ public class util {
 //    (IMP) boundary traversal.................................................................................
     public static ArrayList <Integer> printBoundary(Node node) {
         ArrayList<Integer> ans = new ArrayList<Integer>();
-        ans.add(node.data);
+        ans.add((Integer) node.data);
         printLeft(node.left, ans);
         printLeaf(node.left, ans);
         printLeaf(node.right, ans);
@@ -283,10 +283,10 @@ public class util {
                 return;
             }
             if(node.left != null){
-                ans.add(node.data);
+                ans.add((Integer) node.data);
                 printLeft(node.left, ans);
             }else if(node.right != null){
-                ans.add(node.data);
+                ans.add((Integer) node.data);
                 printLeft(node.right, ans);
             }
         }
@@ -297,7 +297,7 @@ public class util {
             }
             printLeaf(node.left, ans);
             if(node.left == null && node.right == null){
-                ans.add(node.data);
+                ans.add((Integer) node.data);
             }
             printLeaf(node.right, ans);
         }
@@ -308,10 +308,10 @@ public class util {
             }
             if(node.right != null){
                 printRight(node.right, ans);
-                ans.add(node.data);
+                ans.add((Integer) node.data);
             }else if(node.left != null){
                 printRight(node.left, ans);
-                ans.add(node.data);
+                ans.add((Integer) node.data);
             }
     }
 
@@ -341,7 +341,7 @@ public class util {
                 }
                 queue.add(null);
             }else{
-                list.add(poll.data);
+                list.add((Integer) poll.data);
                 if(poll.left != null){
                     queue.add(poll.left);
                 }
@@ -412,8 +412,8 @@ public class util {
         if(root == null){
             return max;
         }
-        if(root.data > max){
-            max = root.data;
+        if((Integer) root.data > max){
+            max = (Integer) root.data;
         }
         int max1 = max(root.left, max);
         int max2 = max(root.right, max);
@@ -426,9 +426,9 @@ public class util {
             return;
         }
         for(int i : arr){
-            matrix[i][root.data] = 1;
+            matrix[i][(Integer) root.data] = 1;
         }
-        arr.add(root.data);
+        arr.add((Integer) root.data);
         fillMatrix(matrix, root.left, arr);
         fillMatrix(matrix, root.right, arr);
         arr.remove(arr.size()-1);
@@ -543,9 +543,9 @@ public class util {
         }
         int data1 = postOrder(node.left);
         int data2 = postOrder(node.right);
-        int data = node.data;
+        int data =(Integer) node.data;
         node.data = data1 + data2;
-        return node.data + data;
+        return (Integer) node.data + data;
     }
 
 //    =================================================Question 18==========================================================
@@ -560,10 +560,10 @@ public class util {
             return 0;
         }
         int data = preOrderLeftSubtree(node.left);
-        int value = node.data;
+        int value = (Integer) node.data;
         node.data = value + data;
         int data1 = preOrderLeftSubtree(node.right);
-        return node.data + data1;
+        return (Integer) node.data + data1;
     }
 
 //=================================================Question 19================================================================
@@ -664,17 +664,17 @@ public class util {
         }
         if(root == node){
             ArrayList<Integer> ans = new ArrayList<>();
-            ans.add(root.data);
+            ans.add((Integer) root.data);
             return ans;
         }
         ArrayList<Integer> ans1 = nodeToRootPath(root.left, node);
         if(ans1.size() > 0){
-            ans1.add(root.data);
+            ans1.add((Integer) root.data);
             return ans1;
         }
         ArrayList<Integer> ans2 = nodeToRootPath(root.right, node);
         if(ans2.size() > 0){
-            ans2.add(root.data);
+            ans2.add((Integer) root.data);
             return ans2;
         }
         ArrayList<Integer> blank = new ArrayList<>();
@@ -734,7 +734,7 @@ public class util {
 
 //Root to leaf path with given sum
     public static boolean pathWithGivenSum(Node root, int k){
-        boolean ans = pathWithGivenSumHelper(root, k, root.data);
+        boolean ans = pathWithGivenSumHelper(root, k, (Integer) root.data);
         return ans;
     }
 
@@ -743,13 +743,13 @@ public class util {
             return true;
         }
         if(node.left != null){
-            boolean ans = pathWithGivenSumHelper(node.left, k, sum + node.left.data);
+            boolean ans = pathWithGivenSumHelper(node.left, k, sum + (Integer) node.left.data);
             if(ans == true){
                 return true;
             }
         }
         if(node.right != null){
-            boolean ans2 = pathWithGivenSumHelper(node.right, k, sum + node.right.data);
+            boolean ans2 = pathWithGivenSumHelper(node.right, k, sum + (Integer) node.right.data);
             if(ans2 == true){
                 return true;
             }
@@ -836,9 +836,9 @@ public class util {
             return;
         }
         if(map.containsKey(current)){
-            map.put(current, map.get(current) + node.data);
+            map.put(current, map.get(current) +(Integer) node.data);
         }else{
-            map.put(current, node.data);
+            map.put(current,(Integer) node.data);
         }
 
         InorderVerticalSum(node.left, map, current-1);
@@ -898,7 +898,7 @@ public class util {
                 }
                 if(flag == true){
                     for(int i = 0; i < queue.size()/2; i++){
-                        int temp = queue.get(i).data;
+                        int temp =(Integer) queue.get(i).data;
                         queue.get(i).data = queue.get(queue.size()-1-i).data;
                         queue.get(queue.size()-1-i).data = temp;
                     }
@@ -972,7 +972,7 @@ public class util {
 
         int leftTreeSum = tilt(node.left);
         int rightTreeSum = tilt(node.right);
-        int sum = leftTreeSum+ rightTreeSum+ node.data;
+        int sum = leftTreeSum+ rightTreeSum+ (Integer) node.data;
         node.data = Math.abs(leftTreeSum- rightTreeSum);
         return sum;
     }
@@ -986,7 +986,7 @@ public class util {
         int sum = 0;
         while (!queue.isEmpty()){
             Node pop = queue.poll();
-            sum += pop.data;
+            sum += (Integer) pop.data;
             if(pop.left != null){
                 queue.add(pop.left);
             }
@@ -1070,9 +1070,123 @@ public class util {
         }
         pair leftpair = pathSum(node.left);
         pair rightpair = pathSum(node.right);
-        int leftFinal = Math.max(Math.max(leftpair.leftSubTreeSum, leftpair.rightSubTreeSum), 0) + node.data;
-        int rightFinal = Math.max(Math.max(rightpair.rightSubTreeSum, rightpair.leftSubTreeSum), 0) + node.data;
-        int sumFinal = Math.max(Math.max(Math.max(leftpair.sumSelf, rightpair.sumSelf), leftFinal + rightFinal - node.data), 0);
+        int leftFinal = Math.max(Math.max(leftpair.leftSubTreeSum, leftpair.rightSubTreeSum), 0) + (Integer) node.data;
+        int rightFinal = Math.max(Math.max(rightpair.rightSubTreeSum, rightpair.leftSubTreeSum), 0) + (Integer) node.data;
+        int sumFinal = Math.max(Math.max(Math.max(leftpair.sumSelf, rightpair.sumSelf), leftFinal + rightFinal -(Integer) node.data), 0);
         return new pair(leftFinal, rightFinal, sumFinal);
     }
+
+
+//    ===============================================================================================================
+//    Expression tree
+    public static int expressionTree(Node node){
+        if(node == null){
+            System.out.println("wrong tree");
+            return -1;
+        }
+        int answer = solveExpression(node);
+        return answer;
+    }
+
+    private static int solveExpression(Node node){
+        if(node == null){
+            return 0;
+        }
+        int answerLeft = solveExpression(node.left);
+        int answerRight = solveExpression(node.right);
+
+        String data = (String) node.data;
+        if(data == "+" || data == "-" || data == "/" || data == "*"){
+            int answer = solve(answerLeft, answerRight, data);
+            return answer;
+        }
+        return Integer.parseInt(data)  + answerLeft + answerRight;
+    }
+
+    private static int solve(int left, int right, String data){
+        if(data == "+"){
+            return left+right;
+        }else if(data == "-"){
+            return left-right;
+        }else if(data == "/"){
+            return left/right;
+        }else if(data == "*") {
+            return left * right;
+        }
+        return 0;
+    }
+
+
+//    Vertical height of binary tree
+    public static HashMap<Integer, Integer> countVerticalNodes(Node node){
+        if(node == null){
+            return new HashMap<>();
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        InorderVertcalCount(node, 0, map);
+        return map;
+    }
+    private static void InorderVertcalCount(Node node, int current, HashMap<Integer, Integer> map){
+        if(node == null){
+            return;
+        }
+        if(map.containsKey(current)){
+            map.put(current, map.get(current) + 1);
+        }else{
+            map.put(current, 1);
+        }
+
+        InorderVertcalCount(node.left, current-1, map);
+        InorderVertcalCount(node.right, current+1, map);
+        return;
+    }
+
+
+//    Reverse Binary Tree
+    public static void reverseTree(Node node, int data){
+        if(node == null){
+            return;
+        }
+        reverse(node, node, data);
+    }
+
+    private static void reverse(Node node, Node root, int data){
+        if(node == null){
+            return;
+        }
+        if((Integer) node.data == data){
+            node.data = root.data;
+            root.data = data;
+            return;
+        }
+        reverse(node.left, root, data);
+        reverse(node.right, root, data);
+        return;
+    }
+
+
+//    =====================================================================================================================
+//    Maximum sum path between 2 leaf nodes
+    public static int maxSumPathBw2LeafNodes(Node node){
+        MaxSum = 0;
+        if(node == null){
+            return 0;
+        }
+        int max = maxSumLeafNodes(node);
+        return MaxSum;
+    }
+    private static int MaxSum = 0;
+    private static int maxSumLeafNodes(Node node){
+        if(node == null){
+            return 0;
+        }
+        int leftMax = maxSumLeafNodes(node.left);
+        int rightMax = maxSumLeafNodes(node.right);
+        int sum = leftMax + rightMax +(Integer) node.data;
+        MaxSum = Math.max(MaxSum, sum);
+        return Math.max(leftMax, rightMax) + (Integer) node.data;
+    }
+
+
+
 }

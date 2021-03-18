@@ -6,8 +6,8 @@ public class GenricTree {
         ArrayList<Node> children = new ArrayList<>();
 
     }
-    private Node root;
-    private int size;
+    public Node root;
+    public int size;
 
     public void display(){
         display(root);
@@ -195,4 +195,37 @@ public class GenricTree {
 //    check if the tree is mirror of not......................................................
 //    public
 
+
+    public static int maxPathLength(Node node){
+        if(node == null){
+            return 0;
+        }
+        pair answer = maxPath(node);
+        return answer.selfSum;
+    }
+
+    private static pair maxPath(Node node){
+        if(node == null){
+            return new pair(0, 0, 0);
+        }
+        ArrayList<pair> children = new ArrayList<>();
+        int childSum = 0;
+        int childLeft = 0;
+        int childRight = 0;
+        for(Node childNode : node.children){
+            pair ansChild = maxPath(childNode);
+            int leftChildMax = ansChild.leftSum;
+            int rightChildMax = ansChild.rightSum;
+            childSum = Math.max(childSum, ansChild.selfSum);
+            if(childLeft < childRight){
+                childLeft = Math.max(childLeft, Math.max( leftChildMax, rightChildMax));
+            }else{
+                childRight = Math.max(childRight, Math.max(rightChildMax, leftChildMax));
+            }
+        }
+        int SumPresent = Math.max(childSum, childLeft + childRight + node.data);
+        int leftPresent = childLeft + node.data;
+        int rightPresent = childRight + node.data;
+        return new pair(leftPresent, rightPresent, SumPresent);
+    }
 }
