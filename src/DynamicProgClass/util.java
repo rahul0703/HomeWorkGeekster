@@ -130,32 +130,35 @@ public class util {
 
 
 //    ================================================================================================================
-public static int MinPathCostWithPath(int[][] Cost){
-    int[][] answer = new int[Cost.length][Cost[0].length];
-    int n = Cost.length;
-    int m = Cost[0].length;
-    String[][] path = new String[n][m];
-    for(int i = 0; i < n; i++){
-        if(i == 0){
-            answer[i][0] = Cost[i][0];
-            path[i][0] = "";
-        }else{
-            answer[i][0] = Cost[i][0] + answer[i-1][0];
-            path[i][0] = path[i-1][0] + " V";
+    public static int MinPathCostWithPath(int[][] Cost){
+        int[][] answer = new int[Cost.length][Cost[0].length];
+        int n = Cost.length;
+        int m = Cost[0].length;
+        String[][] path = new String[n][m];
+        for(int i = 0; i < n; i++){
+            if(i == 0){
+                answer[i][0] = Cost[i][0];
+                path[i][0] = "";
+            }else{
+                answer[i][0] = Cost[i][0] + answer[i-1][0];
+                path[i][0] = path[i-1][0] + " V";
+            }
         }
-    }
-    for(int j = 1; j < m; j++){
-        answer[0][j] = Cost[0][j] + answer[0][j-1];
-        path[0][j] = path[0][j-1] + " H";
+        for(int j = 1; j < m; j++){
+            answer[0][j] = Cost[0][j] + answer[0][j-1];
+            path[0][j] = path[0][j-1] + " H";
+        }
+
+        for(int i = 1; i < n; i++){
+            for(int j = 1; j < n; j++){
+                answer[i][j] = Math.min(answer[i-1][j], answer[i][j-1]) + Cost[i][j];
+                path[i][j] = answer[i-1][j] < answer[i][j-1] ? path[i-1][j] + " V" : path[i][j-1] + " H";
+            }
+        }
+        System.out.println(path[n-1][m-1]);
+        return answer[n-1][m-1];
     }
 
-    for(int i = 1; i < n; i++){
-        for(int j = 1; j < n; j++){
-            answer[i][j] = Math.min(answer[i-1][j], answer[i][j-1]) + Cost[i][j];
-            path[i][j] = answer[i-1][j] < answer[i][j-1] ? path[i-1][j] + " V" : path[i][j-1] + " H";
-        }
-    }
-    System.out.println(path[n-1][m-1]);
-    return answer[n-1][m-1];
-}
+//    ==================================================================================================================
+
 }

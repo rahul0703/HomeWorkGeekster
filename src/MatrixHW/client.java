@@ -272,4 +272,104 @@ public class client {
         }
         return max;
     }
+
+//    =====================================================================================================================
+    private static int[] rightSmaller(int[] array){
+        int n = array.length;
+        Stack<Integer> stack = new Stack<>();
+        int[] answer = new int[n];
+        for(int i = n-1; i >= 0; i--){
+            int a = array[i];
+            if(stack.isEmpty()){
+                answer[i] = n;
+            }else{
+                while(!stack.isEmpty() && array[stack.peek()] >= a){
+                    stack.pop();
+                }
+                if(stack.isEmpty()){
+                    answer[i] = n;
+                }else{
+                    answer[i] = stack.peek();
+                }
+            }
+            stack.push(i);
+        }
+        return answer;
+    }
+
+    private static int[] leftSmaller(int[] array){
+        int n = array.length;
+        Stack<Integer> stack = new Stack<>();
+        int[] answer = new int[n];
+        for(int i = 0; i < n; i++){
+            if(stack.isEmpty()){
+                answer[i] = -1;
+            }else {
+                while (!stack.isEmpty() && array[i] <= array[stack.peek()]){
+                    stack.pop();
+                }
+                if (stack.isEmpty()) {
+                    answer[i] = -1;
+                } else {
+                    answer[i] = stack.peek();
+                }
+            }
+            stack.push(i);
+        }
+        return answer;
+    }
+
+    private static int[] largestHistogram(int[] array){
+        int[] leftSmaller = leftSmaller(array);
+        int[] rightSmaller = rightSmaller(array);
+        int maxSum = Integer.MIN_VALUE;
+        int x = 0;
+        int y = 0;
+        int[] answer = new int[3];
+        for(int i = 0; i < array.length; i++){
+            int sum = array[i] * (rightSmaller[i] - leftSmaller[i] -1);
+            if(sum > maxSum){
+                maxSum = sum;
+                x = array[i];
+                y = (rightSmaller[i] - leftSmaller[i] -1);
+            }
+        }
+        answer[0] = x;
+        answer[1] = y;
+        answer[2] = maxSum;
+        return answer;
+    }
+
+    public static int largestAreaMatrix(int[][] matrix){
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[] finalAns = new int[3];
+        int area = 1;
+        for(int i = 1; i < n; i++){
+            int[] array = new int[m];
+            for(int j = 0; j < m; j++){
+                if(matrix[i][j] == 1){
+                    matrix[i][j] = matrix[i][j] + matrix[i-1][j];
+                }
+                array[j] = matrix[i][j];
+            }
+            int[] ans = largestHistogram(array);
+            if(ans[2] > area){
+                finalAns = ans;
+                area = ans[2];
+            }
+        }
+        for(int i = 0; i < finalAns[0]; i++){
+            for(int j = 0; j < finalAns[1]; j++){
+                System.out.print("1 ");
+            }
+            System.out.println();
+        }
+        return finalAns[2];
+    }
+
+
+//    find a specific pair in matrix
+
+
 }
