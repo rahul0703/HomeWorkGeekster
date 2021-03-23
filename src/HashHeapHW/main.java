@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class main {
     public static void main(String[] args){
-        int[] array = {1, 21, 3, 12, 9, 8, 32, 34, 110, 11, 20};
-        int[] array1 = {8, 45, -21, -13, -15, 43, -32, -22, -7, -39, -22, -21, 26, -46, -7, 13, -37, -12, -44, -10, -46, -32};
+//        int[] array = {1, 21, 3, 12, 9, 8, 32, 34, 110, 11, 20};
+//        int[] array1 = {8, 45, -21, -13, -15, 43, -32, -22, -7, -39, -22, -21, 26, -46, -7, 13, -37, -12, -44, -10, -46, -32};
 //        int[] array = {1};
 //        ArrayList<Integer> ans = util.maxiInAllSlidingWindow(array, 3);
 //        for(int i : ans){
@@ -38,8 +38,15 @@ public class main {
 //        for(int i : answer){
 //            System.out.print(i + " ");
 //        }
-        int[] answerQue = {4, 3, 2, 6};
-        int sum = util.ConnectRopes(answerQue);
-        System.out.print(sum + " ");
+//        int[] answerQue = {4, 3, 2, 6};
+//        int sum = util.ConnectRopes(answerQue);
+//        System.out.print(sum + " ");
+//        util.patternMatching("abababbkjkj");
+//        int[][] array = {{0, 1, 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}};
+//        System.out.println(util.countSquares(array));
+//        util.solution(100000);
+        int[] array = {6, 2, 4};
+        System.out.println(util.mctFromLeafValues(array));
+
     }
 }

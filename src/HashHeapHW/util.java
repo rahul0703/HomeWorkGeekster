@@ -1,4 +1,5 @@
 package HashHeapHW;
+import java.sql.Struct;
 import java.util.*;
 public class util {
 //    print k largest elements..................................
@@ -464,4 +465,139 @@ public static int[] KClosestElemets(int[] array, int k, int num){
 //            }
 //            Node parent =
 //        }
+
+    public static void patternMatching(String str){
+        int n = str.length();
+        int max = (n-2)/3;
+        for(int i = 1; i <= max; i++){
+            String a = str.substring(0, i);
+            String b = str.substring(i, 2*i);
+            String c = str.substring(2*i, 3*i);
+            if(a.equals(b) && a.equals(c)){
+                boolean ans = checkPattern(str.substring(3*i));
+                if(ans == true){
+                    System.out.println("YES");
+                    return;
+                }
+            }
+        }
+        System.out.println("NO");
+        return;
     }
+
+
+    public static boolean checkPattern(String str){
+        int n = str.length();
+        if(n % 2 != 0){
+            return false;
+        }
+        String a = str.substring(0, n/2);
+        String b = str.substring(n/2);
+        if(a.equals(b)){
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public static int countSquares(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[][] answer = new int[n][m];
+        for(int i = 0; i < n; i++){
+            answer[i][0] = matrix[i][0];
+        }
+
+        for(int j = 0; j < m; j++){
+            answer[0][j] = matrix[0][j];
+        }
+
+        for(int i = 1; i < n; i++){
+            for(int j = 1; j < m; j++){
+                int x = Math.min(Math.min(answer[i-1][j], answer[i][j-1]), answer[i-1][j-1]);
+                if(x >= 1){
+                    answer[i][j] = x+1;
+                }else{
+                    answer[i][j] = Math.max(matrix[i][j], x);
+                }
+            }
+        }
+        for(int[] ans : answer){
+            for(int k : ans){
+                System.out.print(k + " ");
+            }
+            System.out.println();
+        }
+        int answerFinal = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                answerFinal += answer[i][j];
+            }
+        }
+        return answerFinal;
+    }
+
+
+//
+    public static void solution(int n){
+        int count = 0;
+        long start = 0;
+        int index = n;
+        for(int i = 2; i <= index; i++){
+            int max = sequence(i);
+            if(max > count){
+                count = max;
+                start = i;
+            }
+
+        }
+        System.out.println(start + " " + count);
+//        System.out.println(sequence(9));
+    }
+
+    public static int sequence(int n){
+        int count = 1;
+        while(n != 1){
+            if(n % 2 == 0){
+                n = n/2;
+            }else{
+                n = 3*n + 1;
+            }
+            count++;
+        }
+        return count;
+    }
+
+
+    public static int mctFromLeafValues(int[] arr) {
+        int n = arr.length;
+        pair ans = findSol(0, n-1, arr);
+        return ans.sum;
+    }
+    public static HashMap<ArrayList<Integer>, pair>  map = new HashMap<>();
+
+
+    public static pair findSol(int start, int end, int[] array){
+        if(start == end){
+            return new pair(array[start], 0);
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(start);
+        list.add(end);
+        if(map.containsKey(list)){
+            return map.get(list);
+        }
+        int maxLeaf = 0;
+        int MinValue = Integer.MAX_VALUE;
+        for(int i = start; i <= end; i++){
+            pair answer1 = findSol(start, i, array);
+            pair answer2 = findSol(i+1, end, array);
+            maxLeaf = Math.max(maxLeaf, Math.max(answer1.leaf, answer2.leaf));
+            MinValue = Math.min(MinValue, answer1.sum + answer2.sum + answer1.leaf * answer2.leaf);
+        }
+        map.put(list, new pair(maxLeaf, MinValue));
+        return new pair(maxLeaf, MinValue);
+    }
+
+}

@@ -1,5 +1,8 @@
 package DynamicProgClass;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class util {
 
     public static int[] fibonaci(int N){
@@ -160,5 +163,217 @@ public class util {
     }
 
 //    ==================================================================================================================
+    public static int maxGold(int[][] matrix){
+        int[][] answer = new int[matrix.length][matrix.length];
+        for(int i = 0; i < matrix.length; i++){
+            answer[i][0] = matrix[i][0];
+        }
+
+        for(int j = 1; j < matrix.length; j++){
+            for(int i = 0; i < matrix.length; i++){
+                if(i == 0){
+                    answer[i][j] = matrix[i][j] + Math.max(answer[i+1][j-1], answer[i][j-1]);
+                }else if(i == matrix.length-1){
+                    answer[i][j] = matrix[i][j] + Math.max(answer[i][j-1], answer[i-1][j-1]);
+                }else{
+                    answer[i][j] = matrix[i][j] + Math.max(Math.max(answer[i][j-1], answer[i-1][j-1]), answer[i+1][j-1]);
+                }
+            }
+        }
+
+        int max = 0;
+        for(int i = 0; i < matrix.length; i++){
+            max = Math.max(max, answer[i][answer.length-1]);
+        }
+        return max;
+    }
+
+
+    public static int maxGoldWithPath(int[][] matrix){
+        int[][] answer = new int[matrix.length][matrix.length];
+        String[][] path = new String[matrix.length][matrix.length];
+        for(int i = 0; i < matrix.length; i++){
+            answer[i][0] = matrix[i][0];
+            path[i][0] = "" + i + " ";
+        }
+
+        for(int j = 1; j < matrix.length; j++){
+            for(int i = 0; i < matrix.length; i++){
+                if(i == 0){
+                    answer[i][j] = matrix[i][j] + Math.max(answer[i+1][j-1], answer[i][j-1]);
+                    if(answer[i+1][j-1] > answer[i][j-1]){
+                        path[i][j] = path[i+1][j-1] + "DiaUp ";
+                    }else{
+                        path[i][j] = path[i][j-1] + "H ";
+                    }
+                }else if(i == matrix.length-1){
+                    answer[i][j] = matrix[i][j] + Math.max(answer[i][j-1], answer[i-1][j-1]);
+                    if(answer[i-1][j-1] > answer[i][j-1]){
+                        path[i][j] = path[i-1][j-1] + "DiaDown ";
+                    }else{
+                        path[i][j] = path[i][j-1] + "H ";
+                    }
+                }else{
+                    answer[i][j] = matrix[i][j] + Math.max(Math.max(answer[i][j-1], answer[i-1][j-1]), answer[i+1][j-1]);
+                    if(answer[i-1][j-1] > answer[i][j-1] && answer[i-1][j-1] > answer[i+1][j-1]){
+                        path[i][j] = path[i-1][j-1] + "DiaDown ";
+                    }else if(answer[i+1][j-1] > answer[i][j-1] && answer[i+1][j-1] > answer[i-1][j-1]){
+                        path[i][j] = path[i+1][j-1] + "DiaUp ";
+                    }else{
+                        path[i][j] = path[i][j-1] + "H ";
+                    }
+                }
+            }
+        }
+
+        int max = 0;
+        int index = 0;
+        for(int i = 0; i < matrix.length; i++){
+            if(answer[i][answer.length-1] > max){
+                index = i;
+            }
+            max = Math.max(max, answer[i][answer.length-1]);
+        }
+        System.out.println(path[index][matrix.length-1]);
+        return max;
+    }
+
+    public static int minJumps(int[] array){
+        int n = array.length;
+        int[] answer = new int[n];
+        String[] path = new String[n];
+        answer[0] = 0;
+        for(int i = 1; i < n; i++){
+            int max = Integer.MAX_VALUE;
+            for(int j = 0; j < i; j++){
+                int sum = 0;
+                int req = i - j;
+                if(array[j] >= req){
+                    sum = answer[j] + 1;
+                    if(sum < max){
+                        max = sum;
+                    }
+                }
+            }
+            answer[i] = max;
+        }
+        return answer[n-1];
+    }
+
+
+    public static int LongestIncreasingSubsequence(int[] array){
+        int n = array.length;
+        int[] answer = new int[n];
+        answer[0] = 0;
+        for(int i = 1; i < n; i++){
+            int max = Integer.MIN_VALUE;
+            for(int j = 0; j < i; j++){
+                int sum = 0;
+                if(array[j] < array[i]){
+                    sum = answer[j] + 1;
+                    if(sum > max){
+                        max = sum;
+                    }
+                }
+            }
+            answer[i] = max;
+        }
+        int retu = 0;
+        for(int i : answer){
+            retu = Math.max(i, retu);
+        }
+        return retu;
+    }
+
+
+//    =======================================================================================================
+    public static int maxHeightOfBox(box[] array){
+        int n = array.length;
+        int[] answer = new int[3*n];
+        ArrayList<box> list = new ArrayList<>();
+        for(int i = 0; i < n; i++){
+            box value = array[i];
+            box value1 = new box(value.height, Math.max(value.length, value.bredth), Math.min(value.length, value.bredth));
+            box value2 = new box(value.length, Math.max(value.height, value.bredth), Math.min(value.height, value.bredth));
+            box value3 = new box(value2.bredth, Math.max(value.length, value.height), Math.min(value.length, value.height));
+            list.add(value1);
+            list.add(value2);
+            list.add(value3);
+        }
+
+        Collections.sort(list);
+        answer[0] = list.get(0).height;
+        for(int i = 1; i < 3*n; i++){
+            int max = Integer.MIN_VALUE;
+            for(int j = 0; j < i; j++){
+                int sum = 0;
+                if(list.get(j).area < list.get(i).area){
+                    sum = answer[j] + list.get(i).height;
+                    if(sum > max){
+                        max = sum;
+                    }
+                }
+            }
+            answer[i] = max;
+        }
+        return answer[3*n-1];
+    }
+
+
+//    =====================================================================================================================================
+    public static int rodCuttingProblem(int rodLength, int[] prices){
+        int[] answer = new int[rodLength+1];
+        String[] ans = new String[rodLength+1];
+        int n = rodLength + 1;
+        for(int i = 0; i < n; i++){
+            int max = prices[i];
+            String st = i + "";
+            for(int j = 0; j <= i; j++){
+                if(answer[i-j] + answer[j] > max){
+                    st = ans[i-j] + " " + ans[j];
+                }
+                max = Math.max(max, answer[i-j] + answer[j]);
+            }
+            answer[i] = max;
+            ans[i] = st;
+        }
+        System.out.println(ans[rodLength]);
+        return answer[rodLength];
+    }
+
+//    ==================================================================================================================================
+//    test match example by pepcoding
+    public static boolean targetSumPair(int target, int[] array){
+        int n = array.length;
+        int[][] answer = new int[n+1][target+1];
+        String[][] ans = new String[n+1][target+1];
+        answer[0][0] = 1;
+        ans[0][0] = "Do nothing ";
+        for(int i = 1; i <= n; i++){
+            answer[i][0] = 1;
+            ans[i][0] = "do nothing ";
+        }
+        for(int j = 1; j <= target; j++){
+            answer[0][j] = 0;
+            ans[0][j] = "No possible";
+        }
+
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= target; j++){
+                if(answer[i-1][j] == 1){
+                    answer[i][j] = 1;
+                    ans[i][j] = ans[i-1][j] + "do nothing ";
+                }else if(array[i-1] <= j && answer[i-1][j-array[i-1]] == 1) {
+                    answer[i][j] = 1;
+                    ans[i][j] = ans[i-1][j-array[i-1]] + "play " + array[i-1] + " ";
+                }else{
+                    answer[i][j] = 0;
+                    ans[i][j] = "Not possible";
+                }
+            }
+        }
+        System.out.println(ans[n][target]);
+        return answer[n][target] == 1;
+    }
 
 }

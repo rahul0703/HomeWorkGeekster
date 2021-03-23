@@ -371,5 +371,145 @@ public class client {
 
 //    find a specific pair in matrix
 
+    public static int findSpecificPairInMatrix(int[][] matrix){
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        int n = matrix.length;
+        int sumMax = 0;
+        queue.add(matrix[0][0]);
+        int i = 1;
+        Stack<Integer> stack = new Stack<>();
+        while(i < n){
+            for(int j = 0; j <= i; j++){
+                int sum = matrix[i][j] - queue.peek();
+                sumMax = Math.max(sum, sumMax);
+                sum = matrix[j][i] - queue.peek();
+                sumMax = Math.max(sum, sumMax);
+                stack.push(matrix[i][j]);
+                stack.push(matrix[j][i]);
+            }
+            while(!stack.isEmpty()){
+                queue.add(stack.pop());
+            }
+            i++;
+        }
+        return sumMax;
+    }
+
+//    =================================================================================================================
+
+    private static int[] computeTemporaryArray(char pattern[]){
+        int [] lps = new int[pattern.length];
+        int index =0;
+        for(int i=1; i < pattern.length;){
+            if(pattern[i] == pattern[index]){
+                lps[i] = index + 1;
+                index++;
+                i++;
+            }else{
+                if(index != 0){
+                    index = lps[index-1];
+                }else{
+                    lps[i] =0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    /**
+     * KMP algorithm of pattern matching.
+     */
+    public static  boolean KMP(char []text, char []pattern){
+
+        int lps[] = computeTemporaryArray(pattern);
+        int i=0;
+        int j=0;
+        while(i < text.length && j < pattern.length){
+            if(text[i] == pattern[j]){
+                i++;
+                j++;
+            }else{
+                if(j!=0){
+                    j = lps[j-1];
+                }else{
+                    i++;
+                }
+            }
+        }
+        if(j == pattern.length){
+            return true;
+        }
+        return false;
+    }
+//    ====================================================================================================================
+//    Shortest path in binary Maze
+    public static int shortestPathInBinaryMaze(int[][] maze, int sourceX, int sourceY, int desX, int desY){
+        int n = maze.length;
+        boolean[][] boolArray = new boolean[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                boolArray[i][j] = false;
+            }
+        }
+        Queue<pair2> queue = new LinkedList<>();
+        queue.add(new pair2(sourceX, sourceY, 0));
+        int distance = depthFirstSearch(maze, boolArray, desX, desY, queue);
+        return distance;
+    }
+
+    private static int depthFirstSearch(int[][] maze, boolean[][] boolArray, int x, int y, Queue<pair2> queue){
+        int minDIs = Integer.MAX_VALUE;
+        while(!queue.isEmpty()){
+            pair2 pollPair = queue.poll();
+            int xPair = pollPair.indexX;
+            int yPair = pollPair.indexY;
+            int dis = pollPair.disTravel;
+            if(xPair == x && yPair == y){
+                minDIs = Math.min(minDIs, dis);
+            }
+            if(!boolArray[xPair][yPair]){
+                boolArray[xPair][yPair] = true;
+                addAllNeighbour(xPair, yPair, boolArray, queue, dis, maze);
+            }
+        }
+        return minDIs;
+    }
+
+
+    private static void addAllNeighbour(int x, int y, boolean[][] boolArray, Queue<pair2> queue, int dis, int[][] maze){
+        int[] Xd = {1, -1, 0, 0};
+        int[] Yd = {0, 0, 1, -1};
+
+        for(int i = 0; i < Xd.length; i++){
+            if(x + Xd[i] >= 0 && x + Xd[i] < maze.length && y + Yd[i] >= 0 && y + Yd[i] < maze.length && maze[x+ Xd[i]][y+ Yd[i]] == 1 && !boolArray[x + Xd[i]][y + Yd[i]]){
+                queue.add(new pair2(x+ Xd[i], y + Yd[i], dis+1));
+            }
+        }
+        return;
+    }
+
+
+//    ====================================================================================================================
+//    Kth smallest element from matrix
+    public static int KthMinElementFromMatrix(int[][] matrix, int k){
+        PriorityQueue<pair3> queue = new PriorityQueue<>();
+        for(int i = 0; i < matrix.length; i++){
+            queue.add(new pair3(matrix[i][0], i, 0));
+        }
+        int ans = -1;
+        for(int i = 0; i < k; i++){
+            pair3 ele = queue.poll();
+            int row = ele.row;
+            int col = ele.col;
+            if(col < matrix[0].length -1){
+                queue.add(new pair3(matrix[row][col+1], row, col+1));
+            }
+            ans = ele.value;
+        }
+        return ans;
+    }
+//    ==================================================================================================================
+
 
 }

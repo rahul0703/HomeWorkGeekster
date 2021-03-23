@@ -25,9 +25,12 @@ public class main {
 //        util.merge2SortedArraysO1space(array, array1, n, k);
 //        System.out.println(util.median2SortedArrays(array1, array));
 //        System.out.println(util.countTriplets(array, n, k));
-        util.radixSort(array, n);
-        for(int i : array){
-            System.out.print(i + " ");
-        }
+//        util.radixSort(array, n);
+//        for(int i : array){
+//            System.out.print(i + " ");
+//        }
+        int[] arr1 = {1, 3};
+        int[] arr2 = {2};
+        System.out.println(util.median2SortedArrays(arr1, arr2));
     }
 }
