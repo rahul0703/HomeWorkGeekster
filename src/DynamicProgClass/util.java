@@ -376,4 +376,158 @@ public class util {
         return answer[n][target] == 1;
     }
 
+
+//    ===========================================================================================================
+    public static int coinDistibution(int target, int[] array){
+        int[] answer = new int[target+1];
+        for(int j = 0; j <= target; j++){
+            if(j == 0){
+                answer[j] = 1;
+            }else {
+                int x = 0;
+                for (int i : array) {
+                    if (i <= j) {
+                        x += answer[j - i];
+                    }
+                }
+                answer[j] = x;
+            }
+        }
+        return answer[target];
+    }
+
+
+    public static int coinChangeCombination(int target, int[] array){
+        int[] answer = new int[target+1];
+        answer[0] = 1;
+        for(int i : array){
+            for(int j = 1; j <= target; j++){
+                if(j >= i && answer[j-i] > 0){
+                    answer[j] += answer[j-i];
+                }
+            }
+        }
+        return answer[target];
+    }
+
+//    ===========================================================================================================================
+    public static int maxSum(int[] array){
+        int[] answer = new int[array.length];
+        int ans = maxSumElem(answer, array, 0);
+        return ans;
+    }
+
+        public static int maxSumElem(int[] answer, int[] array, int index){
+            if(index >= array.length){
+                return 0;
+            }
+
+            if(answer[index] != 0){
+                return answer[index];
+            }
+
+            int ans1 = array[index] + maxSumElem(answer, array, index+2);
+            int ans2 = maxSumElem(answer, array, index+1);
+            return answer[index] = Math.max(ans1, ans2);
+        }
+
+//        ======================================================================================================================
+//    public static int count = 0;
+//    public static int egepytianFraction(int a, int b){
+//        egypt(a, b);
+//        return count;
+//    }
+//
+//    public static void egypt(int a, int b){
+//        if(a == 1){
+//            return;
+//        }
+//        while()
+//    }
+
+    public static int LongestCommonSubsequence(String str1, String str2){
+        int[][] array = new int[str1.length()+1][str2.length()+1];
+        for(int i = 0; i <= str1.length(); i++){
+            for(int j = 0; j <= str2.length(); j++){
+                if(i == 0 || j == 0){
+                    array[i][j] = 0;
+                }else if(str1.charAt(i-1) == str2.charAt(j-1)){
+                    array[i][j] = Math.max(array[i-1][j-1]+1, Math.max(array[i-1][j], array[i][j-1]));
+                }
+            }
+        }
+        return array[str1.length()][str2.length()];
+    }
+
+
+    public static int LongestCommonSub(String str1, String str2){
+        int[][] array = new int[str1.length()][str2.length()];
+        int ans = lcs(str1, str2, array, 0, 0);
+        return ans;
+    }
+
+    public static int lcs(String str1, String str2, int[][] array, int index, int index2){
+        if(index >= str1.length() || index2 >= str2.length()){
+            return 0;
+        }
+
+        if(array[index][index2] != 0){
+            return array[index][index2];
+        }
+        if(str1.charAt(index) == str2.charAt(index2)){
+            return array[index][index2] = Math.max(lcs(str1, str2, array, index+1, index2+1) + 1, Math.max(
+                    lcs(str1, str2, array, index+1, index2), lcs(str1, str2, array, index, index2+1)));
+        }
+        return array[index][index2] = Math.max(lcs(str1, str2, array, index+1, index2), lcs(str1, str2, array, index, index2+1));
+    }
+
+//    ================================================================================================================================
+    public static int mimimumPalindromicCut(String str){
+        int n = str.length();
+        int[][] dp = new int[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                dp[i][j] = -1;
+            }
+        }
+        int ans = cuts(str, dp, 0);
+        return ans;
+    }
+
+    private static int cuts(String str, int[][] dp, int index){
+        int n = str.length();
+        if(n == 1 || n == 0) {
+            return dp[index][index + n -1] = 0;
+        }
+         if(isPalindromic(str)){
+             return 0;
+         }
+//        if(str.charAt(0) == str.charAt(n-1)){
+//            if(dp[index + 1][index + n - 2] == 0){
+//                dp[index][index + n - 1] = 0;
+//                return 0;
+//            }
+//        }
+        if(dp[index][index + n - 1] != -1){
+            return dp[index][index + n - 1];
+        }
+        int answer = Integer.MAX_VALUE;
+        for(int i = 1; i < n; i++){
+            int ans1 = cuts(str.substring(0, i), dp, index);
+            int ans2 = cuts(str.substring(i), dp, i+index);
+            answer = Math.min(answer, ans1+ans2+1);
+        }
+        return dp[index][index + n-1] = answer;
+    }
+
+    private static boolean isPalindromic(String str){
+        for(int i = 0; i < str.length(); i++){
+            if(str.charAt(i) != str.charAt(str.length()-1-i)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

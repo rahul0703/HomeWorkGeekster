@@ -38,8 +38,12 @@ public class main {
 //                }
 //            }
 //            return count;
-        int[] array = {2, 3, 1, 5, 6};
-        int n = 11;
-        System.out.println(util.targetSumPair(n, array));
+//        int[] array = {2, 3, 5};
+//        int n = 7;
+//        System.out.println(util.coinChangeCombination(n, array));
+//            System.out.println(util.egepytianFraction(12, 13));
+//        System.out.println(util.LongestCommonSub("ababc", "babc"));
+        System.out.println(util.mimimumPalindromicCut("rahulaabbaa"));
         }
+
     }
