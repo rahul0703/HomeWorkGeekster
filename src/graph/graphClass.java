@@ -1,9 +1,11 @@
 package graph;
 
+import com.sun.jdi.event.StepEvent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class graphClass {
 
@@ -76,6 +78,8 @@ public class graphClass {
         }
     }
 
+
+//    =====================================================================================================================================
     public boolean hasPath(String source, String des){
         HashSet<String> visited = new HashSet<>();
         visited.add(source);
@@ -101,7 +105,7 @@ public class graphClass {
         return false;
     }
 
-
+//=======================================================================================================================================
     public void hasPath1(String source, String des){
         HashSet<String> visited = new HashSet<>();
         visited.add(source);
@@ -124,4 +128,144 @@ public class graphClass {
         }
     }
 
+
+//    ==================================================================================================================================
+    public int shortestPath(String source, String des){
+        HashSet<String> visited = new HashSet<>();
+        visited.add(source);
+        findShortPath(source, des, visited, 0);
+        return minimum;
+    }
+
+    private int minimum = Integer.MAX_VALUE;
+
+    private void findShortPath(String current, String des, HashSet<String> visited, int curr){
+        if(current == des){
+            if(minimum > curr){
+                minimum = curr;
+            }
+            return;
+        }
+        for(Map.Entry<String, Integer> entry : graph.get(current).entrySet()){
+            String ver = entry.getKey();
+            if(visited.contains(ver) == false){
+                visited.add(ver);
+                curr += graph.get(current).get(ver);
+                findShortPath(ver, des, visited, curr);
+                visited.remove(ver);
+                curr -= graph.get(current).get(ver);
+            }
+        }
+    }
+
+    private class Tpair {
+        String v;
+        String p;
+        int w;
+
+        public Tpair(String v,String p,int w){
+            this.v = v;
+            this.p = p;
+            this .w = w;
+        }
+    }
+    public boolean bfs(String s,String d){
+        Tpair pair = new Tpair(s,s,0);
+
+        HashSet<String> visited = new HashSet<>();
+        LinkedList<Tpair> q = new LinkedList<>();
+        q.addLast(pair);
+        while(q.size()>0){
+            Tpair rem = q.removeFirst();
+            visited.add(rem.v);
+            System.out.println(rem.v+"@"+rem.p);
+            if(rem.v.equals(d)){
+                return true;
+            }
+            for(String n:graph.get(rem.v).keySet()){
+                if(visited.contains(n)==false){
+                    Tpair npair = new Tpair(n,rem.p+n,rem.w+ graph.get(rem.v).get(n));
+                    q.addLast(npair);
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    public boolean dfs(String source, String des){
+        HashSet<String> set = new HashSet<>();
+        Stack<String> stack = new Stack<>();
+        stack.add(source);
+        while(!stack.isEmpty()){
+            String popEle = stack.pop();
+            if(set.contains(popEle) == false){
+                set.add(popEle);
+                for(String neighbour : graph.get(popEle).keySet()){
+                    if(neighbour.equals(des)){
+                        return true;
+                    }
+                    stack.push(neighbour);
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public ArrayList<HashSet<String>> connectedComponents(){
+        HashSet<String> visited = new HashSet<>();
+        ArrayList<HashSet<String>> ans = new ArrayList<>();
+        for(String vertex : graph.keySet()){
+            if(visited.contains(vertex) == false){
+                HashSet<String> set = new HashSet<>();
+                Stack<String> stack = new Stack<>();
+                stack.add(vertex);
+                set.add(vertex);
+                while(!stack.isEmpty()){
+                    String popEle = stack.pop();
+                    if(visited.contains(popEle) == false){
+                        visited.add(popEle);
+                        for(String neighbour : graph.get(popEle).keySet()){
+                            if(visited.contains(neighbour) == false){
+                                stack.add(neighbour);
+                                set.add(neighbour);
+                            }
+                        }
+                    }
+                }
+                ans.add(set);
+            }
+        }
+        return ans;
+    }
+
+
+    public boolean isCyclic(){
+        HashSet<String> visited = new HashSet<>();
+        for (String vertex : graph.keySet()) {
+            if(visited.contains(vertex)){
+                continue;
+            }
+            Tpair pair = new Tpair(vertex, vertex, 0);
+
+            LinkedList<Tpair> q = new LinkedList<>();
+            q.addLast(pair);
+            while (q.size() > 0) {
+                Tpair rem = q.removeFirst();
+                if (visited.contains(rem.v)) {
+                    return true;
+                }
+                visited.add(rem.v);
+                for (String n : graph.get(rem.v).keySet()) {
+                    if (visited.contains(n) == false) {
+                        Tpair npair = new Tpair(n, rem.p + n, rem.w + graph.get(rem.v).get(n));
+                        q.addLast(npair);
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

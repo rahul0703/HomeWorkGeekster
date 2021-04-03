@@ -16,10 +16,14 @@ class heap{
             downheapify(i);
         }
     }
+
+
     public void add(int data){
         this.list.add(data);
         upheapify(this.list.size()-1);
     }
+
+
     public void upheapify(int index){
         if(index == 0){
             return;

@@ -16,7 +16,7 @@ public class main {
         graph.addEdge("B", "C", 21);
         graph.addEdge("C", "D", 23);
         graph.addEdge("D", "A", 15);
-        graph.addEdge("E", "D", 10);
+//        graph.addEdge("E", "D", 10);
         graph.addEdge("E", "F", 19);
         graph.addEdge("F", "G", 12);
         graph.addEdge("E", "G", 13);
@@ -28,6 +28,7 @@ public class main {
 //        graph.display();
 //        System.out.println(graph.countVertex() + " " + graph.countEdges());
 
-        graph.hasPath1("A", "G");
+//        graph.hasPath1("A", "G");
+        System.out.println(graph.connectedComponents());
     }
 }
