@@ -1,5 +1,5 @@
 package DynamicProgrammingHW;
-
+import java.util.*;
 public class util {
 
     public static int uglyNumber(int n){
@@ -135,6 +135,40 @@ public class util {
             }
         }
         return dp[value];
+    }
+
+
+    public static int subsetSumTest(int n){
+        ArrayList<Integer> list = new ArrayList();
+        int i = 1;
+        while(i*i <= n){
+            int x = i*i;
+            list.add(x);
+            i++;
+        }
+        int size = list.size();
+        int[][] dp = new int[size][n+1];
+        for(int r = 0; r < size; r++){
+            for(int s = 0; s <= n; s++){
+                int curr = list.get(r);
+                if(r == 0){
+                    dp[r][s] = s;
+                }else{
+                    int min = dp[r-1][s];
+                    if(s >= curr){
+                        min = Math.min(min, dp[r][s - curr] + 1);
+                    }
+                    dp[r][s] = min;
+                }
+            }
+        }
+        for(int[] k : dp){
+            for(int h : k){
+                System.out.print(h + " ");
+            }
+            System.out.println();
+        }
+        return dp[size-1][n];
     }
 
 

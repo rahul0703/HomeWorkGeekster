@@ -9,6 +9,7 @@ public class main {
 
 //        System.out.println(util.maximumSizeSquareMatrix(array1));
 //        System.out.println(util.uglyNumber(15));
-        System.out.println(util.optimalBST(array, 2));
+//        System.out.println(util.optimalBST(array, 2));
+        System.out.println(util.subsetSumTest(21));
     }
 }
