@@ -268,4 +268,59 @@ public class graphClass {
         }
         return false;
     }
+
+
+//    =========================================================================================================================
+
+//    Disjoint sets
+    public Integer[][] kruskal(Integer[][] matrix){
+        PriorityQueue<edge> queue = new PriorityQueue<>();
+        HashMap<Integer, DSNode> dset = new HashMap<>();
+        Integer[][] mst = new Integer[matrix.length][matrix.length];
+        for(int i = 0; i < matrix.length; i++){
+            dset.put(i, new DSNode(i));
+            for(int j = 0; j < matrix.length; j++){
+                if(matrix[i][j] != null){
+                    queue.add(new edge(i, j, matrix[i][j]));
+                }
+            }
+        }
+
+        while(!queue.isEmpty()){
+            edge rem = queue.poll();
+            DSNode leader1 = find(dset.get(rem.src));
+            DSNode leader2 = find(dset.get(rem.ngr));
+            if(leader1 != leader2){
+                mst[rem.src][rem.ngr] = rem.len;
+                mst[rem.ngr][rem.src] = rem.len;
+                union(leader1, leader2);
+            }
+        }
+        return mst;
+
+    }
+
+
+    private DSNode find(DSNode child){
+        if(child.parent == child){
+            return child;
+        }else{
+            DSNode par = find(child.parent);
+            child.parent = par;
+            return par;
+        }
+    }
+
+
+    private void union(DSNode leader1, DSNode leader2){
+        if(leader1.rank < leader2.rank){
+            leader1.parent = leader2;
+        }else if(leader1.rank > leader2.rank){
+            leader2.parent = leader1;
+        }else{
+            leader1.parent = leader2;
+            leader2.rank++;
+        }
+    }
+
 }
